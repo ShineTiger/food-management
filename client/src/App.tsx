@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddMeal from './pages/AddMeal';
 import Main from './pages/Main';
 
@@ -27,10 +27,10 @@ function App() {
           <span>12 unread messages. Tap to see.</span>
         </div>
       </div>
-      <Switch>
-        <Route path="/AddMeal" component={AddMeal} />
-        <Route path="/Main" component={Main} />
-      </Switch>
+      <Routes>
+        <Route path="/AddMeal" element={<AddMeal />} />
+        <Route path="/Main" element={<Main />} />
+      </Routes>
     </BrowserRouter>
   );
 }
