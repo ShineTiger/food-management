@@ -1,9 +1,9 @@
-const Navbar = () => {
+const Navbar = ({ title }) => {
   return (
     <>
       <div className="navbar bg-base-100 bg-amber-400">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">My Calorie</a>
+          <a className="btn btn-ghost normal-case text-xl">{title}</a>
         </div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
