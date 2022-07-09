@@ -6,7 +6,7 @@ const Modal = () => {
     <div className="modal-box">
       <ul>
         <li>
-          <Link to="Addmeal">
+          <Link to="/Addmeal">
             <input type="checkbox" name="morning"></input>
             <label htmlFor="morning">아침</label>
           </Link>
