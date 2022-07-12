@@ -18,15 +18,25 @@ const Main = () => {
             <p>If a dog chews shoes whose shoes does he choose?</p>
 
             <label
-              onClick={() => handleModal(true)}
-              htmlFor="my-modal"
+              //onClick={() => handleModal(true)}
+              htmlFor="my-modal-4"
               className="btn modal-button"
             >
               open modal
             </label>
 
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
-            <div className="modal">{isOpen && <Modal />}</div>
+            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+            <label htmlFor="my-modal-4" className="modal cursor-pointer">
+              <label className="modal-box relative" htmlFor="">
+                <h3 className="text-lg font-bold">
+                  Congratulations random Internet user!
+                </h3>
+                <p className="py-4">
+                  You've been selected for a chance to get one year of
+                  subscription to use Wikipedia for free!
+                </p>
+              </label>
+            </label>
           </div>
         </div>
       </div>
