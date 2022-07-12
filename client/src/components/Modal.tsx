@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 const Modal = () => {
   return (
-    <div className="modal-box">
+    <label className="modal-box relative" htmlFor="">
       <ul>
         <li>
           <Link to="/Addmeal">
@@ -30,7 +30,7 @@ const Modal = () => {
             Yay!
           </label>
         </div> */}
-    </div>
+    </label>
   );
 };
 
