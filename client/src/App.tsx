@@ -3,13 +3,21 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddMeal from './pages/AddMeal';
 import Main from './pages/Main';
 
+//components
+import Navbar from './components/Navbar';
+
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/AddMeal" element={<AddMeal />} />
-        <Route path="/Main" element={<Main />} />
-      </Routes>
+      <div className="lg:w-96 md:w-96 sm:w-full h-screen mx-auto">
+        <Navbar title={'텍스트'} />
+        <div className="px-2.5">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/AddMeal" element={<AddMeal />} />
+          </Routes>
+        </div>
+      </div>
     </BrowserRouter>
   );
 }
