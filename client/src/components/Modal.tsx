@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const Modal = () => {
   return (
     <label className="modal-box relative" htmlFor="">
       <ul>
         <li>
-          <Link to="/Addmeal">
+          <Link to="/Addmeal?type=brackfast">
             <input type="checkbox" name="morning"></input>
             <label htmlFor="morning">아침</label>
           </Link>
@@ -24,12 +24,6 @@ const Modal = () => {
           <label htmlFor="snack">간식</label>
         </li>
       </ul>
-
-      {/* <div className="modal-action">
-          <label htmlFor="my-modal" className="btn">
-            Yay!
-          </label>
-        </div> */}
     </label>
   );
 };

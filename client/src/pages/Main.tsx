@@ -17,11 +17,7 @@ const Main = () => {
             <h2 className="card-title">Shoes!</h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
 
-            <label
-              //onClick={() => handleModal(true)}
-              htmlFor="my-modal-4"
-              className="btn modal-button"
-            >
+            <label htmlFor="my-modal-4" className="btn modal-button">
               open modal
             </label>
 

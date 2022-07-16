@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="lg:w-96 md:w-96 sm:w-full h-screen mx-auto">
-        <Navbar title={'텍스트'} />
+        <Navbar />
         <div className="px-2.5">
           <Routes>
             <Route path="/" element={<Main />} />
