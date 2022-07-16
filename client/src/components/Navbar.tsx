@@ -16,11 +16,23 @@ const Navbar = () => {
           setTitle('아침');
           break;
 
+        case 'lunch':
+          setTitle('점심');
+          break;
+
+        case 'dinner':
+          setTitle('저녁');
+          break;
+
+        case 'snack':
+          setTitle('간식');
+          break;
+
         default:
           break;
       }
     }
-  }, []);
+  });
 
   return (
     <>

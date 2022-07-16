@@ -12,16 +12,22 @@ const Modal = () => {
           </Link>
         </li>
         <li>
-          <input type="checkbox" name="lunch"></input>
-          <label htmlFor="lunch">점심</label>
+          <Link to="/Addmeal?type=lunch">
+            <input type="checkbox" name="lunch"></input>
+            <label htmlFor="lunch">점심</label>
+          </Link>
         </li>
         <li>
-          <input type="checkbox" name="dinner"></input>
-          <label htmlFor="dinner">저녁</label>
+          <Link to="/Addmeal?type=dinner">
+            <input type="checkbox" name="dinner"></input>
+            <label htmlFor="dinner">저녁</label>
+          </Link>
         </li>
         <li>
-          <input type="checkbox" name="snack"></input>
-          <label htmlFor="snack">간식</label>
+          <Link to="/Addmeal?type=snack">
+            <input type="checkbox" name="snack"></input>
+            <label htmlFor="snack">간식</label>
+          </Link>
         </li>
       </ul>
     </label>
