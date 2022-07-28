@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const AddMeal = () => {
-  const [search, setSearch] = useState('');
-
-  const handleInputValue = e => {
-    setSearch(e.target.value);
-  };
-
+  /*
+  State) input value / type : string / event : onChange
+  State) 부가기능 유무 boolean 
+  State) 자동완성박스 안에 들어가는 값 / type : array
+  style : input value의 length만큼 자동완성박스(array) 안의 요소를 참,거짓을 판별한다 || dummyData의 name을 .split("",1)한다 > (split된 더미데이터, 0).includes(e.target.value) > true
+  */
   interface dummyNames {
     id: number;
     name: string;
@@ -22,7 +22,15 @@ const AddMeal = () => {
     { id: 6, name: '장조림' },
   ];
 
-  const [autoComplete, setAutoComplete] = useState(dummyData);
+  const [serachInput, setSearchInput] = useState('');
+  const [isInputHaveValue, setIsInputHaveValue] = useState(false);
+  const [autoCompleteBox, setautoCompleteBox] = useState(dummyData);
+
+  const handleInputValue = e => {
+    setSearchInput(e.target.value);
+  };
+
+  //const makeDataArray = dummyData.map(i => i.name);
 
   return (
     <>
@@ -34,15 +42,6 @@ const AddMeal = () => {
             className="input input-bordered"
             onChange={handleInputValue}
           />
-        </div>
-        <div>
-          <ul>
-            {autoComplete.map(i => (
-              <li key={i.id}>
-                <label>{i.name}</label>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </>
