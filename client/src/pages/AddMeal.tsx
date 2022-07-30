@@ -33,11 +33,16 @@ const AddMeal = () => {
   const handleInputValue = e => {
     const getKorean: RegExp = getRegExp(e.target.value);
     setSearchInput(getKorean);
+    //setSearchInput(e.target.value);
   };
 
   const handleCompleteList = () => {
     if (serachInput !== '' || makeDataArray.includes(serachInput)) {
       setIsCompleteBoxOn(true);
+      const matchTextList = makeDataArray.filter(text =>
+        text.match(serachInput),
+      );
+      setCompleteList(matchTextList);
     }
   };
 
