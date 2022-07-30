@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getRegExp } from 'korean-regexp';
 
 const AddMeal = () => {
   /*
@@ -22,15 +23,28 @@ const AddMeal = () => {
     { id: 6, name: '장조림' },
   ];
 
-  const [serachInput, setSearchInput] = useState('');
-  const [isInputHaveValue, setIsInputHaveValue] = useState(false);
-  const [autoCompleteBox, setautoCompleteBox] = useState(dummyData);
+  //dummyData의 name의 값을 배열로만듬
+  const makeDataArray = dummyData.map(i => i.name);
+
+  const [serachInput, setSearchInput] = useState<string | RegExp>('');
+  const [isCompleteBoxOn, setIsCompleteBoxOn] = useState(false);
+  const [completeList, setCompleteList] = useState(dummyData);
 
   const handleInputValue = e => {
-    setSearchInput(e.target.value);
+    const getKorean: RegExp = getRegExp(e.target.value);
+    setSearchInput(getKorean);
   };
 
-  //const makeDataArray = dummyData.map(i => i.name);
+  const handleCompleteList = () => {
+    if (serachInput !== '' || makeDataArray.includes(serachInput)) {
+      setIsCompleteBoxOn(true);
+    }
+  };
+
+  useEffect(() => {
+    handleCompleteList();
+    console.log(serachInput);
+  }, [serachInput]);
 
   return (
     <>
