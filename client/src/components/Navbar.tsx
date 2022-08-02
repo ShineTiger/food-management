@@ -7,10 +7,11 @@ const Navbar = () => {
   //useSearchParams로 상위컴포넌트에서 보내주는 QS문을 받는다. 그리고 배열형식으로 반환한다.
   const type = searchParams.get('type');
 
+  //console.log(type);
   useEffect(() => {
-    console.log(window.location.pathname);
+    //console.log(window.location.pathname);
     if (window.location.pathname === '/Addmeal') {
-      console.log(type);
+      //console.log(type);
       switch (type) {
         case 'brackfast':
           setTitle('아침');
@@ -36,7 +37,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 bg-amber-400">
+      <div className="navbar bg-amber-400">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-xl">{title}</a>
         </div>
