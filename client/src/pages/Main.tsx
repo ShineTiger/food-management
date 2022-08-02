@@ -5,7 +5,7 @@ import Modal from '../components/Modal';
 const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleModal = value => {
+  const handleModal = (value: boolean | ((prevState: boolean) => boolean)) => {
     setIsOpen(value);
   };
 
