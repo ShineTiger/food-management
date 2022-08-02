@@ -23,7 +23,7 @@ const AddMeal = () => {
     { id: 6, name: '장조림' },
   ];
 
-  const [serachInput, setSearchInput] = useState<string | RegExp>('');
+  const [searchInput, setSearchInput] = useState<string | RegExp>('');
   const [isCompleteBox, setIsCompleteBox] = useState(false);
   const [completeList, setCompleteList] = useState(dummyData);
 
@@ -36,12 +36,12 @@ const AddMeal = () => {
   };
 
   const handleCompleteList = () => {
-    if (serachInput === '') {
+    if (searchInput === '') {
       setIsCompleteBox(false);
     } else {
       setIsCompleteBox(true);
       const matchTextList = dummyData.filter(text =>
-        text.name.match(serachInput),
+        text.name.match(searchInput),
       );
       setCompleteList(matchTextList);
     }
@@ -49,8 +49,8 @@ const AddMeal = () => {
 
   useEffect(() => {
     handleCompleteList();
-    console.log(serachInput);
-  }, [serachInput]);
+    console.log(searchInput);
+  }, [searchInput]);
 
   return (
     <>
@@ -67,12 +67,12 @@ const AddMeal = () => {
           <div className="dropdown">
             <ul className="menu p-2 shadow bg-base-100 rounded-box w-52">
               {completeList.map(item => {
-                const itemNameStirng = item.name.match(serachInput);
+                const itemNameStirng = item.name.match(searchInput);
                 return (
                   <li key={item.id}>
                     <a>
                       <span className="text-orange-500">{itemNameStirng}</span>
-                      {item.name.replace(serachInput, '')}
+                      {item.name.replace(searchInput, '')}
                     </a>
                   </li>
                 );
