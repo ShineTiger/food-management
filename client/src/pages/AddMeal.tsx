@@ -63,23 +63,27 @@ const AddMeal = () => {
             onChange={handleInputValue}
           />
         </div>
-        {isCompleteBox && (
-          <div className="dropdown">
-            <ul className="menu p-2 shadow bg-base-100 rounded-box w-52">
-              {completeList.map(item => {
-                const itemNameStirng = item.name.match(searchInput);
-                return (
-                  <li key={item.id}>
-                    <a>
-                      <span className="text-orange-500">{itemNameStirng}</span>
-                      {item.name.replace(searchInput, '')}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
+        <div className="mt-2.5 flex flex-col">
+          {isCompleteBox && (
+            <div className="dropdown">
+              <ul className="menu p-2 shadow bg-base-100 rounded-box w-full">
+                {completeList.map(item => {
+                  const itemNameStirng = item.name.match(searchInput);
+                  return (
+                    <li key={item.id}>
+                      <a>
+                        <span className="text-orange-500">
+                          {itemNameStirng}
+                        </span>
+                        {item.name.replace(searchInput, '')}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
