@@ -15,8 +15,8 @@ const AddMeal = () => {
     { id: 8, name: '반역' },
   ];
 
-  const [searchString, setSearchString] = useState<string>('');
-  const [searchInput, setSearchInput] = useState<RegExp>();
+  const [stringValue, setStringValue] = useState<string>('');
+  const [regexValue, setRegexValue] = useState<RegExp>();
   const [isCompleteBox, setIsCompleteBox] = useState(false);
   const [completeList, setCompleteList] = useState(dummyData);
 
@@ -25,17 +25,17 @@ const AddMeal = () => {
       initialSearch: true,
       startsWith: true,
     });
-    setSearchInput(getKorean);
-    setSearchString(e.target.value);
+    setRegexValue(getKorean);
+    setStringValue(e.target.value);
   };
 
   const handleCompleteList = () => {
-    if (searchString === '') {
+    if (stringValue === '') {
       setIsCompleteBox(false);
     } else {
       setIsCompleteBox(true);
       const matchTextList = dummyData.filter(text =>
-        text.name.match(searchString),
+        text.name.match(stringValue),
       );
       setCompleteList(matchTextList);
     }
@@ -43,7 +43,7 @@ const AddMeal = () => {
 
   useEffect(() => {
     handleCompleteList();
-  }, [searchInput]);
+  }, [regexValue]);
 
   return (
     <>
@@ -63,8 +63,8 @@ const AddMeal = () => {
                 return (
                   <li key={item.id}>
                     <a className={addmealCss.nogap}>
-                      <span className="text-orange-500">{searchString}</span>
-                      {item.name.replace(searchString, '')}
+                      <span className="text-orange-500">{stringValue}</span>
+                      {item.name.replace(stringValue, '')}
                     </a>
                   </li>
                 );
