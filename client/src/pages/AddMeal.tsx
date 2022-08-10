@@ -46,8 +46,8 @@ const AddMeal = () => {
   }, [regexValue]);
 
   return (
-    <>
-      <div className="px-2.5">
+    <div className="flex flex-col w-full">
+      <div className="mt-4">
         <div className="form-control">
           <input
             type="text"
@@ -56,9 +56,9 @@ const AddMeal = () => {
             onChange={handleInputValue}
           />
         </div>
-        {isCompleteBox && (
-          <div className="dropdown">
-            <ul className="menu p-2 shadow bg-base-100 rounded-box w-52">
+        <div className="mt-4">
+          {isCompleteBox && (
+            <ul className="menu bg-base-100 rounded-box">
               {completeList.map(item => {
                 return (
                   <li key={item.id}>
@@ -70,10 +70,11 @@ const AddMeal = () => {
                 );
               })}
             </ul>
-          </div>
-        )}
+          )}
+          {}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
