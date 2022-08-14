@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getRegExp } from 'korean-regexp';
-import e from 'express';
+import { useState } from 'react';
 import addmealCss from './AddMeal.module.css';
 
 const AddMeal = () => {
@@ -15,35 +13,34 @@ const AddMeal = () => {
     { id: 8, name: '반역' },
   ];
 
-  const [stringValue, setStringValue] = useState<string>('');
-  const [regexValue, setRegexValue] = useState<RegExp>();
-  const [isCompleteBox, setIsCompleteBox] = useState(false);
-  const [completeList, setCompleteList] = useState(dummyData);
+  const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
 
   const handleInputValue = (e: { target: { value: string } }) => {
-    const getKorean: RegExp = getRegExp(e.target.value, {
-      initialSearch: true,
-      startsWith: true,
-    });
-    setRegexValue(getKorean);
-    setStringValue(e.target.value);
+    setsearchInputValue(e.target.value);
   };
 
-  const handleCompleteList = () => {
-    if (stringValue === '') {
-      setIsCompleteBox(false);
-    } else {
-      setIsCompleteBox(true);
-      const matchTextList = dummyData.filter(text =>
-        text.name.match(stringValue),
-      );
-      setCompleteList(matchTextList);
-    }
-  };
+  const CompleteBox = () => {
+    const matchTextList = dummyData.filter(text =>
+      text.name.match(searchInputValue),
+    );
 
-  useEffect(() => {
-    handleCompleteList();
-  }, [regexValue]);
+    return (
+      <>
+        <ul className="menu bg-base-100 rounded-box">
+          {matchTextList.map(item => {
+            return (
+              <li key={item.id}>
+                <a className={addmealCss.nogap}>
+                  <span className="text-orange-500">{searchInputValue}</span>
+                  {item.name.replace(searchInputValue, '')}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    );
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -56,23 +53,7 @@ const AddMeal = () => {
             onChange={handleInputValue}
           />
         </div>
-        <div className="mt-4">
-          {isCompleteBox && (
-            <ul className="menu bg-base-100 rounded-box">
-              {completeList.map(item => {
-                return (
-                  <li key={item.id}>
-                    <a className={addmealCss.nogap}>
-                      <span className="text-orange-500">{stringValue}</span>
-                      {item.name.replace(stringValue, '')}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-          {}
-        </div>
+        <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
       </div>
     </div>
   );
