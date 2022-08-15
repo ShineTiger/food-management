@@ -34,9 +34,11 @@ const AddMeal = () => {
       setIsCompleteBox(false);
     } else {
       setIsCompleteBox(true);
-      const matchTextList = dummyData.filter(text =>
-        text.name.match(stringValue),
+
+      const matchTextList = dummyData.filter(
+        text => regexValue && text.name.match(regexValue.source),
       );
+
       setCompleteList(matchTextList);
     }
   };
