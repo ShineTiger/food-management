@@ -62,11 +62,15 @@ const AddMeal = () => {
           <div className="dropdown">
             <ul className="menu p-2 shadow bg-base-100 rounded-box w-52">
               {completeList.map(item => {
+                // 정규표현식에 통과되는 텍스트를 색칠하는 로직
+                const complateListRegex =
+                  regexValue && item.name.match(regexValue.source);
+                const activeText = complateListRegex && complateListRegex[0];
                 return (
                   <li key={item.id}>
                     <a className={addmealCss.nogap}>
-                      <span className="text-orange-500">{stringValue}</span>
-                      {item.name.replace(stringValue, '')}
+                      <span className="text-orange-500">{activeText}</span>
+                      {activeText && item.name.replace(activeText, '')}
                     </a>
                   </li>
                 );
