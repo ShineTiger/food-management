@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getRegExp } from 'korean-regexp';
-import e from 'express';
+import { useState } from 'react';
 import addmealCss from './AddMeal.module.css';
 
 const AddMeal = () => {
@@ -15,19 +13,12 @@ const AddMeal = () => {
     { id: 8, name: '반역' },
   ];
 
-  const [stringValue, setStringValue] = useState<string>('');
-  const [regexValue, setRegexValue] = useState<RegExp>();
-  const [isCompleteBox, setIsCompleteBox] = useState(false);
-  const [completeList, setCompleteList] = useState(dummyData);
+  const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
 
   const handleInputValue = (e: { target: { value: string } }) => {
-    const getKorean: RegExp = getRegExp(e.target.value, {
-      initialSearch: true,
-      startsWith: true,
-    });
-    setRegexValue(getKorean);
-    setStringValue(e.target.value);
+    setsearchInputValue(e.target.value);
   };
+
 
   const handleCompleteList = () => {
     if (stringValue === '') {
@@ -43,13 +34,28 @@ const AddMeal = () => {
     }
   };
 
-  useEffect(() => {
-    handleCompleteList();
-  }, [regexValue]);
+
+    return (
+      <>
+        <ul className="menu bg-base-100 rounded-box">
+          {matchTextList.map(item => {
+            return (
+              <li key={item.id}>
+                <a className={addmealCss.nogap}>
+                  <span className="text-orange-500">{searchInputValue}</span>
+                  {item.name.replace(searchInputValue, '')}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    );
+  };
 
   return (
-    <>
-      <div className="px-2.5">
+    <div className="flex flex-col w-full">
+      <div className="mt-4">
         <div className="form-control">
           <input
             type="text"
@@ -58,6 +64,7 @@ const AddMeal = () => {
             onChange={handleInputValue}
           />
         </div>
+
         {isCompleteBox && (
           <div className="dropdown">
             <ul className="menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -78,8 +85,9 @@ const AddMeal = () => {
             </ul>
           </div>
         )}
+
       </div>
-    </>
+    </div>
   );
 };
 
