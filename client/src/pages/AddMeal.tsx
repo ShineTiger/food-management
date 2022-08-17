@@ -5,7 +5,7 @@ import { getRegExp } from 'korean-regexp';
 const AddMeal = () => {
   const dummyData = [
     { id: 1, name: '바나나' },
-    { id: 2, name: '바닐라라떼' },
+    { id: 2, name: '바닐라라떼라떼라떼라떼 라떼라떼라 라떼라떼라떼라 떼라떼' },
     { id: 3, name: '바나나우유' },
     { id: 4, name: '보리밥' },
     { id: 5, name: '자라탕' },
@@ -38,8 +38,11 @@ const AddMeal = () => {
             return (
               <li key={item.id}>
                 <a className={addmealCss.nogap}>
-                  <span className="text-orange-500">{activeText}</span>
-                  {activeText && item.name.replace(activeText, '')}
+                  <input type="checkbox" className="checkbox mr-3.5" />
+                  <p>
+                    <span className="text-orange-500">{activeText}</span>
+                    {activeText && item.name.replace(activeText, '')}
+                  </p>
                 </a>
               </li>
             );
