@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <div className="lg:w-96 md:w-96 sm:w-full h-screen mx-auto">
         <Navbar />
-        <div className="px-2.5">
+        <div className="px-2.5 bg-amber-50">
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/AddMeal" element={<AddMeal />} />
