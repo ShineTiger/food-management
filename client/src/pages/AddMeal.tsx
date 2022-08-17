@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getRegExp } from 'korean-regexp';
-import e from 'express';
 import addmealCss from './AddMeal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -16,11 +15,6 @@ const dummyData = [
   { id: 7, name: '밤밥' },
   { id: 8, name: '반역' },
 ];
-
-interface FoodNameType {
-  id: number;
-  name: string;
-}
 
 const AddMeal = () => {
   const dispatch = useDispatch();
