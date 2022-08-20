@@ -1,7 +1,7 @@
 ---
 name: DETAIL_ISSUE_TEMP
 about: Describe this issue template's purpose here.
-title: "[ISSUE]"
+title: ''
 labels: ''
 assignees: ''
 

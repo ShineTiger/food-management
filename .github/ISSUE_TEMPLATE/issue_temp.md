@@ -1,7 +1,7 @@
 ---
 name: ISSUE_TEMP
 about: Suggest an idea for this project
-title: "[ISSUE]"
+title: ''
 labels: ''
 assignees: ''
 

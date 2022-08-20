@@ -1,7 +1,7 @@
 ---
 name: REQUEST_TEMP
 about: Describe this issue template's purpose here.
-title: "[REQUEST]"
+title: ''
 labels: ''
 assignees: ''
 
