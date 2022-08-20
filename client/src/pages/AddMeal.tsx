@@ -46,6 +46,7 @@ const AddMeal = () => {
             return (
               <li key={item.id}>
                 <a className={addmealCss.nogap}>
+                  <input type="checkbox" className="checkbox mr-3" />
                   <span className="text-orange-500">{activeText}</span>
                   {activeText && item.name.replace(activeText, '')}
                 </a>
