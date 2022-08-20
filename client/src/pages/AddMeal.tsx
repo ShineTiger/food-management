@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { getRegExp } from 'korean-regexp';
-import e from 'express';
 import addmealCss from './AddMeal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -19,23 +18,21 @@ const dummyData = [
 
 const AddMeal = () => {
   const dispatch = useDispatch();
-  const foodNameList = useSelector(
+  const foodNameList: FoodNameType[] = useSelector(
     (store: RootState) => store.foodNames.foodNameList,
   );
 
   const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
   const [regexValue, setRegexValue] = useState<RegExp>(); //검색창에 들어가는 값을 정규식으로 변환해서 들어가는 값(라이브러리 이용할때 씀)
-  const [isCompleteBox, setIsCompleteBox] = useState(false);
-  const [completeList, setCompleteList] = useState(dummyData);
 
-  const handleInputValue = (e: { target: { value: string } }) => {
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const getKorean: RegExp = getRegExp(e.target.value, {});
     setRegexValue(getKorean);
     setsearchInputValue(e.target.value);
   };
 
   const CompleteBox = () => {
-    const matchTextList = dummyData.filter(
+    const matchTextList = foodNameList.filter(
       text => regexValue && text.name.match(regexValue.source),
     );
 
@@ -64,7 +61,6 @@ const AddMeal = () => {
   useEffect(() => {
     // TODO: 더미데이터 => API 응답 데이터
     dispatch(setFoodNames(dummyData));
-    setCompleteList(foodNameList);
   }, []);
 
   return (
