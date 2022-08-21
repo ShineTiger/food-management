@@ -24,7 +24,6 @@ const AddMeal = () => {
 
   const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
   const [regexValue, setRegexValue] = useState<RegExp>(); //검색창에 들어가는 값을 정규식으로 변환해서 들어가는 값(라이브러리 이용할때 씀)
-  const [badge, setBadge] = useState<string[]>([]);
   const [checkedItem, setCheckedItem] = useState<string[]>([]); //체크된 아이템name만 들어옴
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +39,10 @@ const AddMeal = () => {
       //name과 같지 않은것만 반환함 -> name과 같은건 checkedItem에서 삭제한다
       setCheckedItem(checkedItem.filter(el => el !== name));
     }
+  };
+
+  const onRemoved = (name: string) => {
+    setCheckedItem(checkedItem.filter(el => el !== name));
   };
 
   const CompleteBox = () => {
@@ -84,9 +87,9 @@ const AddMeal = () => {
   }, []);
 
   // 콘솔 확인용 useEffect
-  // useEffect(() => {
-  //   console.log(checkedItem);
-  // }, [checkedItem]);
+  useEffect(() => {
+    console.log(checkedItem);
+  }, [checkedItem]);
 
   return (
     <div className="flex flex-col w-full">
@@ -95,10 +98,24 @@ const AddMeal = () => {
           {checkedItem.length !== 0 && (
             <p>{checkedItem.length}개 선택했습니다</p>
           )}
-          {checkedItem.length !== 0 &&
-            checkedItem.map((name, index) => {
-              return <span key={index}>{name}</span>;
-            })}
+          <div className="badge-list">
+            {checkedItem.length !== 0 &&
+              checkedItem.map((name, index) => {
+                return (
+                  <span key={index}>
+                    {name}
+                    <button
+                      value={name}
+                      onClick={() => {
+                        onRemoved(name);
+                      }}
+                    >
+                      X
+                    </button>
+                  </span>
+                );
+              })}
+          </div>
           <input
             type="text"
             placeholder="Search"
