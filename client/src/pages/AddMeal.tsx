@@ -139,6 +139,9 @@ const AddMeal = () => {
           />
         </div>
         <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
+        {checkedItem.length !== 0 && (
+          <button className="btn btn-block mt-4">다음</button>
+        )}
       </div>
     </div>
   );
