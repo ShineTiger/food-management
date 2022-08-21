@@ -96,7 +96,7 @@ const AddMeal = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="mt-4">
+      <form className="mt-4" onSubmit={e => e.preventDefault()}>
         <div className="form-control">
           {checkedItem.length !== 0 && (
             <p>{checkedItem.length}개 선택했습니다</p>
@@ -140,9 +140,11 @@ const AddMeal = () => {
         </div>
         <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
         {checkedItem.length !== 0 && (
-          <button className="btn btn-block mt-4">다음</button>
+          <button className="btn btn-block mt-4" type="submit">
+            다음
+          </button>
         )}
-      </div>
+      </form>
     </div>
   );
 };
