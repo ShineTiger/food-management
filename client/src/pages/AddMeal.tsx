@@ -14,6 +14,9 @@ const dummyData = [
   { id: 6, name: '장조림' },
   { id: 7, name: '밤밥' },
   { id: 8, name: '반역' },
+  { id: 9, name: '부라보' },
+  { id: 10, name: '보라색보라돌이는포도를' },
+  { id: 11, name: '바나나색텔레토비는나나를' },
 ];
 
 const AddMeal = () => {
@@ -98,11 +101,11 @@ const AddMeal = () => {
           {checkedItem.length !== 0 && (
             <p>{checkedItem.length}개 선택했습니다</p>
           )}
-          <div className="badge-list">
+          <div className="badge-list py-4">
             {checkedItem.length !== 0 &&
               checkedItem.map((name, index) => {
                 return (
-                  <span key={index}>
+                  <span className="badge mr-1.5" key={index}>
                     {name}
                     <button
                       value={name}
@@ -110,7 +113,19 @@ const AddMeal = () => {
                         onRemoved(name);
                       }}
                     >
-                      X
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        className="inline-block w-4 h-4 stroke-current"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                      </svg>
                     </button>
                   </span>
                 );
