@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddMeal from './pages/AddMeal';
 import Main from './pages/Main';
+import Join from './pages/Join';
 
 //components
 import Navbar from './components/Navbar';
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/AddMeal" element={<AddMeal />} />
+            <Route path="/Join" element={<Join />} />
           </Routes>
         </div>
       </div>
