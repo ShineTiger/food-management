@@ -4,6 +4,12 @@ interface FoodNameType {
   name: string;
 }
 
+interface DayMeals {
+  breakfast: Food[] | null;
+  lunch: Food[] | null;
+  dinner: Food[] | null;
+  snack: Food[] | null;
+}
 
 interface Food {
   _id: string;

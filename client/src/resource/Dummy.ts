@@ -141,3 +141,9 @@ export const dummyFoodList: Food[] = [
   },
 ];
 
+export const dummyMeals: DayMeals = {
+  breakfast: dummyFoodList.slice(0, 3),
+  lunch: dummyFoodList.slice(4, 6),
+  dinner: dummyFoodList.slice(7, 9),
+  snack: null,
+};
