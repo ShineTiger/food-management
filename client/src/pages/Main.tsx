@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import MainCard from '../components/Main/MainCard';
+import MainCard from '../components/UI/MainCard';
 import Meal from '../components/Main/Meal';
 import Modal from '../components/Modal';
 
