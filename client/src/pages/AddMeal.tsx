@@ -1,61 +1,136 @@
 import React, { useEffect, useState } from 'react';
 import { getRegExp } from 'korean-regexp';
+import addmealCss from './AddMeal.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { setFoodNames } from '../redux/slice/foodNameSlice';
+
+const dummyData = [
+  { id: 1, name: '바나나' },
+  { id: 2, name: '바닐라라떼' },
+  { id: 3, name: '바나나우유' },
+  { id: 4, name: '보리밥' },
+  { id: 5, name: '자라탕' },
+  { id: 6, name: '장조림' },
+  { id: 7, name: '밤밥' },
+  { id: 8, name: '반역' },
+  { id: 9, name: '부라보' },
+  { id: 10, name: '보라색보라돌이는포도를' },
+  { id: 11, name: '바나나색텔레토비는나나를' },
+];
 
 const AddMeal = () => {
-  /*
-  State) input value / type : string / event : onChange
-  State) 부가기능 유무 boolean 
-  State) 자동완성박스 안에 들어가는 값 / type : array
-  style : input value의 length만큼 자동완성박스(array) 안의 요소를 참,거짓을 판별한다 || dummyData의 name을 .split("",1)한다 > (split된 더미데이터, 0).includes(e.target.value) > true
-  */
-  interface dummyNames {
-    id: number;
-    name: string;
-  }
+  const dispatch = useDispatch();
+  const foodNameList: FoodNameType[] = useSelector(
+    (store: RootState) => store.foodNames.foodNameList,
+  );
 
-  //dummyData 타입지정
-  const dummyData: Array<dummyNames> = [
-    { id: 1, name: '바밤바' },
-    { id: 2, name: '밥' },
-    { id: 3, name: '밤밥' },
-    { id: 4, name: '보리밥' },
-    { id: 5, name: '자라탕' },
-    { id: 6, name: '장조림' },
-  ];
+  const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
+  const [regexValue, setRegexValue] = useState<RegExp>(); //검색창에 들어가는 값을 정규식으로 변환해서 들어가는 값(라이브러리 이용할때 씀)
+  const [checkedItem, setCheckedItem] = useState<string[]>([]); //체크된 아이템name만 들어옴
 
-  const [searchInput, setSearchInput] = useState<string | RegExp>('');
-  const [isCompleteBox, setIsCompleteBox] = useState(false);
-  const [completeList, setCompleteList] = useState(dummyData);
-
-  const handleInputValue = (e: { target: { value: string } }) => {
-    const getKorean: RegExp = getRegExp(e.target.value, {
-      initialSearch: true,
-      startsWith: true,
-    });
-    setSearchInput(getKorean);
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const getKorean: RegExp = getRegExp(e.target.value, {});
+    setRegexValue(getKorean);
+    setsearchInputValue(e.target.value);
   };
 
-  const handleCompleteList = () => {
-    if (searchInput === '') {
-      setIsCompleteBox(false);
-    } else {
-      setIsCompleteBox(true);
-      const matchTextList = dummyData.filter(text =>
-        text.name.match(searchInput),
-      );
-      setCompleteList(matchTextList);
+  const onChecked = (checked: boolean, name: string) => {
+    if (checked) {
+      setCheckedItem([...checkedItem, name]);
+    } else if (!checked) {
+      //name과 같지 않은것만 반환함 -> name과 같은건 checkedItem에서 삭제한다
+      setCheckedItem(checkedItem.filter(el => el !== name));
     }
   };
 
+  const onRemoved = (name: string) => {
+    setCheckedItem(checkedItem.filter(el => el !== name));
+  };
+
+  const CompleteBox = () => {
+    const matchTextList = foodNameList.filter(
+      text => regexValue && text.name.match(regexValue.source),
+    );
+
+    return (
+      <>
+        <ul className="menu bg-base-100 rounded-box">
+          {matchTextList.map(item => {
+            const complateListRegex =
+              regexValue && item.name.match(regexValue.source);
+            const activeText = complateListRegex && complateListRegex[0];
+            return (
+              <li key={item.id}>
+                <a className={addmealCss.nogap}>
+                  <input
+                    type="checkbox"
+                    className="checkbox mr-3"
+                    value={item.name}
+                    onChange={e => {
+                      onChecked(e.target.checked, e.target.value);
+                    }}
+                    checked={checkedItem.includes(item.name) ? true : false}
+                  />
+                  <span className="text-orange-500">{activeText}</span>
+                  {activeText && item.name.replace(activeText, '')}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    );
+  };
+
+  // 페이지 입장시 최초 1회 음식 이름 리스트 로드
   useEffect(() => {
-    handleCompleteList();
-    console.log(searchInput);
-  }, [searchInput]);
+    // TODO: 더미데이터 => API 응답 데이터
+    dispatch(setFoodNames(dummyData));
+  }, []);
+
+  // 콘솔 확인용 useEffect
+  useEffect(() => {
+    console.log(checkedItem);
+  }, [checkedItem]);
 
   return (
-    <>
-      <div className="px-2.5">
+    <div className="flex flex-col w-full">
+      <form className="mt-4" onSubmit={e => e.preventDefault()}>
         <div className="form-control">
+          {checkedItem.length !== 0 && (
+            <p>{checkedItem.length}개 선택했습니다</p>
+          )}
+          <div className="badge-list py-4">
+            {checkedItem.length !== 0 &&
+              checkedItem.map((name, index) => {
+                return (
+                  <span className="badge mr-1.5" key={index}>
+                    {name}
+                    <button
+                      value={name}
+                      onClick={() => {
+                        onRemoved(name);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        className="inline-block w-4 h-4 stroke-current"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        ></path>
+                      </svg>
+                    </button>
+                  </span>
+                );
+              })}
+          </div>
           <input
             type="text"
             placeholder="Search"
@@ -63,25 +138,14 @@ const AddMeal = () => {
             onChange={handleInputValue}
           />
         </div>
-        {isCompleteBox && (
-          <div className="dropdown">
-            <ul className="menu p-2 shadow bg-base-100 rounded-box w-52">
-              {completeList.map(item => {
-                const itemNameStirng = item.name.match(searchInput);
-                return (
-                  <li key={item.id}>
-                    <a>
-                      <span className="text-orange-500">{itemNameStirng}</span>
-                      {item.name.replace(searchInput, '')}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+        <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
+        {checkedItem.length !== 0 && (
+          <button className="btn btn-block mt-4" type="submit">
+            다음
+          </button>
         )}
-      </div>
-    </>
+      </form>
+    </div>
   );
 };
 

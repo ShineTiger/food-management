@@ -1,36 +1,54 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import modalCss from './Modal.module.css';
 
 const Modal = () => {
+  const navigate = useNavigate();
+
+  const handleSelect = (queryName: string) => {
+    setTimeout(() => navigate(`/Addmeal?type=${queryName}`), 200);
+  };
+
   return (
-    <label className="modal-box relative" htmlFor="">
-      <ul>
-        <li>
-          <Link to="/Addmeal?type=brackfast">
-            <input type="checkbox" name="morning"></input>
-            <label htmlFor="morning">아침</label>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Addmeal?type=lunch">
-            <input type="checkbox" name="lunch"></input>
-            <label htmlFor="lunch">점심</label>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Addmeal?type=dinner">
-            <input type="checkbox" name="dinner"></input>
-            <label htmlFor="dinner">저녁</label>
-          </Link>
-        </li>
-        <li>
-          <Link to="/Addmeal?type=snack">
-            <input type="checkbox" name="snack"></input>
-            <label htmlFor="snack">간식</label>
-          </Link>
-        </li>
-      </ul>
-    </label>
+    <>
+      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+      <label className="modal-box relative" htmlFor="">
+        <ul>
+          <li>
+            <label className={`label cursor-pointer ${modalCss.nogap}`}>
+              <input
+                type="checkbox"
+                onChange={() => handleSelect('morning')}
+                className="checkbox checkbox-sm mr-3"
+              />
+              <span className="label-text">아침</span>
+            </label>
+          </li>
+          <li>
+            <Link to="/Addmeal?type=lunch">
+              <input type="checkbox" name="lunch" className="checkbox mr-2.5" />
+              <label htmlFor="lunch">점심</label>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Addmeal?type=dinner">
+              <input
+                type="checkbox"
+                name="dinner"
+                className="checkbox mr-2.5"
+              />
+              <label htmlFor="dinner">저녁</label>
+            </Link>
+          </li>
+          <li>
+            <Link to="/Addmeal?type=snack">
+              <input type="checkbox" name="snack" className="checkbox mr-2.5" />
+              <label htmlFor="snack">간식</label>
+            </Link>
+          </li>
+        </ul>
+      </label>
+    </>
   );
 };
 
