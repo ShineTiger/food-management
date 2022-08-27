@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import MainCard from '../components/UI/MainCard';
 import Meal from '../components/Main/Meal';
-import Modal from '../components/Modal';
+import Modal from '../components/UI/ModalCard';
 
 const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
