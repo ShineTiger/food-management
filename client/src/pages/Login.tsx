@@ -1,19 +1,25 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, SetStateAction } from 'react';
 
 const Login = () => {
   const [enteredId, setEnteredId] = useState('');
   const [enteredPw, setEnteredPw] = useState('');
   const [enteredNick, setEnteredNick] = useState('');
 
-  const inputChangeIdHandler = e => {
+  const inputChangeIdHandler = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
     setEnteredId(e.target.value);
   };
 
-  const inputChangePwHandler = e => {
+  const inputChangePwHandler = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
     setEnteredPw(e.target.value);
   };
 
-  const inputChangeNickHandler = e => {
+  const inputChangeNickHandler = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
     setEnteredNick(e.target.value);
   };
 
