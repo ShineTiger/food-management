@@ -1,13 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
+import MealList from '../components/MealList';
 import Modal from '../components/Modal';
+import { dummyFoodList, dummyMeals } from '../resource/Dummy';
 
 const Main = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleModal = (value: boolean | ((prevState: boolean) => boolean)) => {
-    setIsOpen(value);
-  };
+  const isEmptyMeal = true; // FIXME: 임시로 상수값 사용
+
+  // TODO: API에서 받아온 음식 리스트로 변경
+  const [daysMeal, setDaysMeal] = useState<DayMeals>(dummyMeals);
 
   return (
     <>
@@ -15,7 +18,13 @@ const Main = () => {
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body ">
             <h2 className="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
+
+            {/* 음식리스트 */}
+            {isEmptyMeal ? (
+              <MealList meals={daysMeal}></MealList>
+            ) : (
+              <p>If a dog chews shoes whose shoes does he choose?</p>
+            )}
 
             <label htmlFor="my-modal-4" className="btn modal-button">
               open modal
