@@ -3,24 +3,17 @@ import { useState, useRef, SetStateAction } from 'react';
 const Login = () => {
   const [enteredId, setEnteredId] = useState('');
   const [enteredPw, setEnteredPw] = useState('');
-  const [enteredNick, setEnteredNick] = useState('');
 
-  const inputChangeIdHandler = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
+  const inputChangeIdHandler: React.ChangeEventHandler<
+    HTMLInputElement
+  > = e => {
     setEnteredId(e.target.value);
   };
 
-  const inputChangePwHandler = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
+  const inputChangePwHandler: React.ChangeEventHandler<
+    HTMLInputElement
+  > = e => {
     setEnteredPw(e.target.value);
-  };
-
-  const inputChangeNickHandler = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setEnteredNick(e.target.value);
   };
 
   const submitFormHandler = () => {
@@ -53,7 +46,7 @@ const Login = () => {
         type="text"
         placeholder="비밀번호"
         className="input input-bordered w-full my-2"
-        onChange={inputChangeNickHandler}
+        onChange={inputChangePwHandler}
         required
       />
 
