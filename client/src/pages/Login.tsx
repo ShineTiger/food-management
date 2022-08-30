@@ -5,15 +5,21 @@ const Login = () => {
   const [enteredPw, setEnteredPw] = useState('');
   const [enteredNick, setEnteredNick] = useState('');
 
-  const inputChangeIdHandler = e => {
+  const inputChangeIdHandler: React.ChangeEventHandler<
+    HTMLInputElement
+  > = e => {
     setEnteredId(e.target.value);
   };
 
-  const inputChangePwHandler = e => {
+  const inputChangePwHandler: React.ChangeEventHandler<
+    HTMLInputElement
+  > = e => {
     setEnteredPw(e.target.value);
   };
 
-  const inputChangeNickHandler = e => {
+  const inputChangeNickHandler: React.ChangeEventHandler<
+    HTMLInputElement
+  > = e => {
     setEnteredNick(e.target.value);
   };
 
