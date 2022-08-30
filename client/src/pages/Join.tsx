@@ -18,8 +18,9 @@ const Join = () => {
   } = useForm<JoinFormType>();
 
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
+  const nickRegex = /^[ㄱ-ㅎ가-힣]+$/;
 
-  const onPwConfirm: SubmitHandler<JoinFormType> = userdata => {
+  const onVaild: SubmitHandler<JoinFormType> = userdata => {
     //id data 요청
     const idRequest = () => {
       axios
@@ -43,7 +44,7 @@ const Join = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onPwConfirm)}>
+      <form onSubmit={handleSubmit(onVaild)}>
         <h2 className="text-2xl py-3 leading-10 font-medium">회원가입</h2>
         <input
           {...register('id', {
@@ -124,16 +125,16 @@ const Join = () => {
           {...register('nick', {
             required: '닉네임을 입력해 주세요',
             minLength: {
-              value: 4,
-              message: '4자 이상 입력해 주세요',
+              value: 1,
+              message: '1자 이상 입력해 주세요',
             },
             maxLength: {
               value: 15,
               message: '15자 이하 입력해 주세요',
             },
             pattern: {
-              value: IdPwRegex,
-              message: '닉네임은 알파벳과 숫자로만 만들 수 있습니다',
+              value: nickRegex,
+              message: '닉네임은 한글로만 만들 수 있습니다',
             },
           })}
           placeholder="닉네임"
