@@ -15,13 +15,13 @@ const Login = () => {
 
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
 
-  const onPwConfirm: SubmitHandler<LoginFormType> = userdata => {
+  const onVaild: SubmitHandler<LoginFormType> = userdata => {
     console.log(userdata);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onPwConfirm)}>
+      <form onSubmit={handleSubmit(onVaild)}>
         <h2 className="text-2xl py-3 leading-10 font-medium">회원가입</h2>
         <input
           {...register('id', {
