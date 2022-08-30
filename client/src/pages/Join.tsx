@@ -13,37 +13,14 @@ const Join = () => {
     handleSubmit,
     formState: { errors },
     setError,
+    watch,
   } = useForm<JoinFormType>();
 
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
 
-  //비밀번호 확인
   const onPwConfirm: SubmitHandler<JoinFormType> = userdata => {
-    if (userdata.pw !== userdata.pwConfirm) {
-      setError(
-        'pwConfirm',
-        { message: '비밀번호를 확인해주세요.' },
-        { shouldFocus: true },
-      );
-    }
     console.log(userdata);
   };
-
-  //api요청
-  // const formReqeust = () => {
-  //   fetch('http://localhost:5000/testRegster123', {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       id: userInfo.id,
-  //       pw: userInfo.pw,
-  //       nick: userInfo.nick,
-  //     }),
-  //   })
-  //     .then(resonse => resonse.json())
-  //     .then(result => alert(result.message));
-  //   setUserInfo({ id: '', pw: '', nick: '' });
-  //   console.log('success');
-  // };
 
   return (
     <>
@@ -105,7 +82,12 @@ const Join = () => {
         <input
           type="password"
           {...register('pwConfirm', {
-            required: '비밀번호가 일치하지 않습니다',
+            required: true,
+            validate: (val: string) => {
+              if (watch('pw') != val) {
+                return '비밀번호가 일치하지 않습니다';
+              }
+            },
           })}
           placeholder="비밀번호 확인"
           className="input input-bordered w-full"
