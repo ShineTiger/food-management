@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 interface JoinFormType {
   id: string;
   pw: string;
   nick: string;
+  idConfirm: string;
   pwConfirm: string;
 }
 const Join = () => {
@@ -19,6 +20,24 @@ const Join = () => {
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
 
   const onPwConfirm: SubmitHandler<JoinFormType> = userdata => {
+    //id data 요청
+    const idRequest = () => {
+      axios
+        .get('http://localhost:5000/testRegster123')
+        .then(function (response) {
+          return response;
+        });
+    };
+
+    //id 중복확인
+    if (userdata.id !== userdata.idConfirm) {
+      setError(
+        'idConfirm',
+        { message: '중복된 아이디입니다' },
+        { shouldFocus: true },
+      );
+    }
+
     console.log(userdata);
   };
 
