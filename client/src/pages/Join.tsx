@@ -22,9 +22,9 @@ const Join = () => {
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
   const nickRegex = /^[ㄱ-ㅎ가-힣]+$/;
 
-  const onVaild: SubmitHandler<JoinFormType> = userdata => {
+  const onValid: SubmitHandler<JoinFormType> = userdata => {
     //회원가입 폼 전달
-    axios.post('http://localhost:5000/testRegster123', { userdata });
+    // axios.post('http://localhost:5000/testRegster123', { userdata });
 
     console.log(userdata);
     alert('가입완료');
@@ -32,7 +32,7 @@ const Join = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onVaild)}>
+      <form onSubmit={handleSubmit(onValid)}>
         <h2 className="text-2xl py-3 leading-10 font-medium">회원가입</h2>
         <input
           {...register('id', {
@@ -50,13 +50,15 @@ const Join = () => {
               message: '아이디는 알파벳과 숫자로만 만들 수 있습니다',
             },
             validate: {
-              idConfirm: (val: string) => {
-                const dbId: any = axios
-                  .post('http://localhost:5000/testRegster123')
-                  .then(response => response);
-                if (dbId !== val) {
-                  return '중복된 아이디 입니다';
-                }
+              //id중복체크 : 중복인가요 ? 아니요 - false일때 중복이 아님. true일때 중복.
+              idConfirm: async (val: string) => {
+                const dbId: any = (
+                  await axios.post('/api/checkIdDuplicate', {
+                    val,
+                  })
+                ).data;
+                console.log(dbId);
+                return dbId === false || '중복 아이디';
               },
             },
           })}
