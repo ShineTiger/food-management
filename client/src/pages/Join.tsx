@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import React from 'react';
+import { useEffect, useRef } from 'react';
+import { useForm, SubmitHandler, useFormState } from 'react-hook-form';
 
 interface JoinFormType {
   id: string;
@@ -21,25 +23,11 @@ const Join = () => {
   const nickRegex = /^[ㄱ-ㅎ가-힣]+$/;
 
   const onVaild: SubmitHandler<JoinFormType> = userdata => {
-    //id data 요청
-    const idRequest = () => {
-      axios
-        .get('http://localhost:5000/testRegster123')
-        .then(function (response) {
-          return response;
-        });
-    };
-
-    //id 중복확인
-    if (userdata.id !== userdata.idConfirm) {
-      setError(
-        'idConfirm',
-        { message: '중복된 아이디입니다' },
-        { shouldFocus: true },
-      );
-    }
+    //회원가입 폼 전달
+    axios.post('http://localhost:5000/testRegster123', { userdata });
 
     console.log(userdata);
+    alert('가입완료');
   };
 
   return (
@@ -60,6 +48,16 @@ const Join = () => {
             pattern: {
               value: IdPwRegex,
               message: '아이디는 알파벳과 숫자로만 만들 수 있습니다',
+            },
+            validate: {
+              idConfirm: (val: string) => {
+                const dbId: any = axios
+                  .post('http://localhost:5000/testRegster123')
+                  .then(response => response);
+                if (dbId !== val) {
+                  return '중복된 아이디 입니다';
+                }
+              },
             },
           })}
           placeholder="아이디"
