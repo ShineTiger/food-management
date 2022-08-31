@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const { MongoClient } = require("mongodb");
 const { keyChange } = require('./dataAlias');
+const cors = require("cors");
 
 const port = process.env.SERVER_PORT;
 const app = express();
@@ -11,7 +12,9 @@ const client = new MongoClient(uri);
 const db = client.db(process.env.DB_NAME);
 const foodData = db.collection(process.env.DB_COLL_FOOD);
 
-app.post('/getFoodNamesAll', async function (req, res) {
+app.use(cors());
+
+app.post('/api/getFoodNamesAll', async function (req, res) {
 
     const result = (await foodData.find().toArray()).map(i => i.식품명);
     console.log(result);
