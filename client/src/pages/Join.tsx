@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useEffect, useRef } from 'react';
 import { useForm, SubmitHandler, useFormState } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 interface JoinFormType {
   id: string;
@@ -23,11 +24,30 @@ const Join = () => {
   const nickRegex = /^[ㄱ-ㅎ가-힣]+$/;
 
   const onValid: SubmitHandler<JoinFormType> = userdata => {
+    const navigate = useNavigate();
+
     //회원가입 폼 전달
-    axios.post('http://localhost:5000/testRegster123', { userdata });
+    axios
+      .post('http://localhost:5000/testRegster123', { userdata })
+      .then(response => {
+        if (
+          response.data.youCanJoin === true &&
+          response.data.message === null
+        ) {
+          return alert(`'가입완료!' ${navigate('/Login')}`);
+        } else if (response.data.youCanJoin === false) {
+          //비정상적인 접근으로 가입했을 때 메시지를 읽음, 메세지 종류에 따라서 유저에게 보여주는것이 다르다
+          //if(response.data.message==='') {
+          // return alert('')
+          //}
+          return alert(response.data.message);
+        }
+      })
+      .catch(error => {
+        alert(`${error} '원인을 알 수 없는 오류가 발생했습니다.'`);
+      });
 
     console.log(userdata);
-    alert('가입완료');
   };
 
   return (
