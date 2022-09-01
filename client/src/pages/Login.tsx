@@ -24,19 +24,14 @@ const Login = () => {
     axios
       .post('http://localhost:5000/testRegster123', { userdata })
       .then(response => {
-        if (
-          response.data.isCorrectId === true &&
-          response.data.isCorrectPw === true
-        ) {
-          {
-            navigate('/Main');
-          }
-        } else if (response.data.isCorrectId === false) {
+        if (response.data.status === true && response.data.message === null) {
+          navigate('/Main');
+        } else if (response.data.status === false) {
           //비정상적인 접근으로 가입했을 때 메시지를 읽음, 메세지 종류에 따라서 유저에게 보여주는것이 다르다
           //if(response.data.message==='') {
           // return alert('')
           //}
-          return alert(response.data.message);
+          alert(response.data.message);
         }
       })
       .catch(error => {
