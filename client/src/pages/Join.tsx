@@ -24,7 +24,7 @@ const Join = () => {
 
   const onValid: SubmitHandler<JoinFormType> = userdata => {
     //회원가입 폼 전달
-    // axios.post('http://localhost:5000/testRegster123', { userdata });
+    axios.post('http://localhost:5000/testRegster123', { userdata });
 
     console.log(userdata);
     alert('가입완료');
@@ -52,7 +52,7 @@ const Join = () => {
             validate: {
               //id중복체크 : 중복인가요 ? 아니요 - false일때 중복이 아님. true일때 중복.
               idConfirm: async (val: string) => {
-                const dbId: any = (
+                const dbId: boolean = (
                   await axios.post('/api/checkIdDuplicate', {
                     val,
                   })
