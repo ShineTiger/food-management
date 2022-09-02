@@ -1,7 +1,7 @@
 require("dotenv").config();
-const express = require('express');
+const express = require("express");
 const { MongoClient } = require("mongodb");
-const { keyChange } = require('./dataAlias');
+const { keyChange } = require("./dataAlias");
 const cors = require("cors");
 
 const port = process.env.SERVER_PORT;
@@ -37,5 +37,5 @@ app.post('/api/testFail', async function (req, res) {
 });
 
 app.listen(port, () => {
-                    console.log(`${port} hello server`);
+  console.log(`${port} hello server`);
 });
