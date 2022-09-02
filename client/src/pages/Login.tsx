@@ -1,5 +1,10 @@
 import { useState, useRef, SetStateAction } from 'react';
 
+
+interface LoginFormType {
+  id: string;
+  pw: string;
+}
 const Login = () => {
   const [enteredId, setEnteredId] = useState('');
   const [enteredPw, setEnteredPw] = useState('');
@@ -49,7 +54,6 @@ const Login = () => {
         onChange={inputChangePwHandler}
         required
       />
-
       <button className="btn btn-block mt-4" type="submit">
         로그인
       </button>
