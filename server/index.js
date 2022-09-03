@@ -20,9 +20,10 @@ app.post("/api/getFoodNamesAll", async function (req, res) {
   res.send(result);
 });
 
-app.post("/api/checkIdDuplicate", function (req, res) {
-  res.send(Math.random() < 0.5 ? true : false);
-});
+//id 중복확인용 일회용 랜덤 api
+// app.post("/api/checkIdDuplicate", function (req, res) {
+//   res.send(Math.random() < 0.5 ? true : false);
+// });
 
 app.listen(port, () => {
   console.log(`${port} hello server`);
