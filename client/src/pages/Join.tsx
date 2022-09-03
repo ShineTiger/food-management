@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React from 'react';
 import { useEffect, useRef } from 'react';
 import { useForm, SubmitHandler, useFormState } from 'react-hook-form';
@@ -21,22 +21,23 @@ const Join = () => {
 
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
   const nickRegex = /^[ㄱ-ㅎ가-힣]+$/;
+  const navigate = useNavigate();
 
   const onValid: SubmitHandler<JoinFormType> = userdata => {
-    const navigate = useNavigate();
-
     //회원가입 폼 전달
     axios
-      .post('http://localhost:5000/testRegster123', { userdata })
+      .post('/api/test', { userdata })
       .then(response => {
-        //response type:object {status: boolean, message:string}
-        if (response.data.status === true && response.data.message === null) {
-          alert(`'가입완료!' ${navigate('/Login')}`);
-        } else if (response.data.status === false) {
-          //비정상적인 접근으로 가입했을 때 메시지를 읽음, 메세지 종류에 따라서 유저에게 보여주는것이 다르다
-          //if(response.data.message==='') {
-          // return alert('')
-          //}
+        console.log(response.data);
+        if (
+          response.data.status === 'success' &&
+          response.data.message === ''
+        ) {
+          alert('가입완료!');
+          navigate('/Login');
+        } else if (response.data.status === 'fail') {
+          alert(response.data.message);
+        } else if (response.data.status === 'error') {
           alert(response.data.message);
         }
       })
@@ -67,15 +68,13 @@ const Join = () => {
               message: '아이디는 알파벳과 숫자로만 만들 수 있습니다',
             },
             validate: {
-              //id중복체크 : 중복인가요 ? 아니요 - false일때 중복이 아님. true일때 중복.
               idConfirm: async (val: string) => {
-                const dbId: boolean = (
-                  await axios.post('/api/checkIdDuplicate', {
+                const data = (
+                  await axios.post('/api/test', {
                     val,
                   })
                 ).data;
-                console.log(dbId);
-                return dbId === false || '중복 아이디';
+                return data.status === 'success' || '중복 아이디'; //test할땐 true만 사용합니다.
               },
             },
           })}

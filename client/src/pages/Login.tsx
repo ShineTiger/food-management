@@ -16,27 +16,27 @@ const Login = () => {
   } = useForm<LoginFormType>();
 
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
-
+  const navigate = useNavigate();
   const onVaild: SubmitHandler<LoginFormType> = userdata => {
-    const navigate = useNavigate();
-
     //로그인 폼 전달
     axios
-      .post('http://localhost:5000/testRegster123', { userdata })
+      .post('/api/testSuccess', { userdata })
       .then(response => {
-        if (response.data.status === true && response.data.message === null) {
-          navigate('/Main');
-        } else if (response.data.status === false) {
-          //비정상적인 접근으로 가입했을 때 메시지를 읽음, 메세지 종류에 따라서 유저에게 보여주는것이 다르다
-          //if(response.data.message==='') {
-          // return alert('')
-          //}
+        //response type:object {status: string, message:string}
+        if (response.data.status === 'success') {
+          console.log(response.data.status);
+          navigate('/');
+        } else if (response.data.status === 'fail') {
+          alert(response.data.message);
+        } else if (response.data.status === 'error') {
           alert(response.data.message);
         }
       })
       .catch(error => {
         alert(`${error} '원인을 알 수 없는 오류가 발생했습니다.'`);
       });
+
+    console.log(userdata);
   };
 
   return (
