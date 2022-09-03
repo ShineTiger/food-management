@@ -3,3 +3,8 @@ interface FoodNameType {
   id: number;
   name: string;
 }
+
+interface ApiResponseType {
+  status: string;
+  message: string;
+}
