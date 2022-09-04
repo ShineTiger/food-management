@@ -1,8 +1,13 @@
 import React from 'react';
+import ModalCard from '../UI/ModalCard';
+import ModalButton from '../UI/ModlButton';
 import { Link, useNavigate } from 'react-router-dom';
-import modalCss from './Modal.module.css';
+import modalCss from '../Modal.module.css';
 
-const Modal = () => {
+const Meal = () => {
+  // TODO: 이날 먹은 음식이 있는지 검사
+  const isEmptyMeal = false;
+
   const navigate = useNavigate();
 
   const handleSelect = (queryName: string) => {
@@ -11,8 +16,11 @@ const Modal = () => {
 
   return (
     <>
-      <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-      <label className="modal-box relative" htmlFor="">
+      <h2 className="card-title">식사</h2>
+      <p>아직 아무 것도 안 드셨네요!</p>
+
+      <ModalButton id={'my-modal-4'} label="식사 추가하기"></ModalButton>
+      <ModalCard id={'my-modal-4'}>
         <ul>
           <li>
             <label className={`label cursor-pointer ${modalCss.nogap}`}>
@@ -47,9 +55,9 @@ const Modal = () => {
             </Link>
           </li>
         </ul>
-      </label>
+      </ModalCard>
     </>
   );
 };
 
-export default Modal;
+export default Meal;
