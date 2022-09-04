@@ -1,26 +1,20 @@
 import React from 'react';
 import Card from '../UI/Card';
 import BadgeTag from '../UI/BadgeTag';
+import MealItem from './MealItem';
 
 interface MealListProp {
   meals: DayMeals;
 }
 const MealList = ({ meals }: MealListProp) => {
   const { breakfast, lunch, dinner, snack } = meals;
+
   return (
     <>
-      <Card title="아침">
-        {breakfast ? (
-          <ul>
-            {breakfast.map(({ name }) => (
-              <BadgeTag title={name} color="badge-ghost"></BadgeTag>
-            ))}
-          </ul>
-        ) : (
-          // TODO: 끼니 걸렀을 시
-          <p></p>
-        )}
-      </Card>
+      <MealItem time="아침" mealList={breakfast} />
+      <MealItem time="점심" mealList={lunch} />
+      <MealItem time="저녁" mealList={dinner} />
+      <MealItem time="간식" mealList={snack} />
     </>
   );
 };
