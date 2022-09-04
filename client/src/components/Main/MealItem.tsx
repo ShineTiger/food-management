@@ -24,12 +24,6 @@ const MealItem = ({ mealList, time }: MealItemProp) => {
         {mealList.map(({ name }, index) => (
           <BadgeTag key={index} title={name} color="badge-ghost"></BadgeTag>
         ))}
-        {mealList.map(({ name }, index) => (
-          <BadgeTag key={index} title={name} color="badge-ghost"></BadgeTag>
-        ))}
-        {mealList.map(({ name }, index) => (
-          <BadgeTag key={index} title={name} color="badge-ghost"></BadgeTag>
-        ))}
       </ul>
     </Card>
   );
