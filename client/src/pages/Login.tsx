@@ -1,20 +1,24 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, SetStateAction } from 'react';
 
+
+interface LoginFormType {
+  id: string;
+  pw: string;
+}
 const Login = () => {
   const [enteredId, setEnteredId] = useState('');
   const [enteredPw, setEnteredPw] = useState('');
-  const [enteredNick, setEnteredNick] = useState('');
 
-  const inputChangeIdHandler = e => {
+  const inputChangeIdHandler: React.ChangeEventHandler<
+    HTMLInputElement
+  > = e => {
     setEnteredId(e.target.value);
   };
 
-  const inputChangePwHandler = e => {
+  const inputChangePwHandler: React.ChangeEventHandler<
+    HTMLInputElement
+  > = e => {
     setEnteredPw(e.target.value);
-  };
-
-  const inputChangeNickHandler = e => {
-    setEnteredNick(e.target.value);
   };
 
   const submitFormHandler = () => {
@@ -47,10 +51,9 @@ const Login = () => {
         type="text"
         placeholder="비밀번호"
         className="input input-bordered w-full my-2"
-        onChange={inputChangeNickHandler}
+        onChange={inputChangePwHandler}
         required
       />
-
       <button className="btn btn-block mt-4" type="submit">
         로그인
       </button>
