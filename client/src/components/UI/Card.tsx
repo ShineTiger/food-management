@@ -1,22 +1,39 @@
 import React, { ReactNode } from 'react';
 
 interface CardProps {
-  title?: string;
+  title?: string | ReactNode;
   style?: 'card-bordered' | 'shadow-lg';
   color?: 'bg-primary' | 'bg-secondary' | 'bg-accent' | string;
   children?: ReactNode;
+  flex?: boolean;
+  rightTitle: string;
 }
 
-const Card = ({ children, title, style, color }: CardProps) => {
+const Card = ({
+  children,
+  title,
+  style,
+  color,
+  flex,
+  rightTitle,
+}: CardProps) => {
   return (
     <div
-      className={`card ${style ? style : 'card-bordered'} ${color && color}`}
+      className={`card mb-2 mt-2 ${style ? style : 'card-bordered'} ${
+        color && color
+      }`}
     >
-      <div className="card-body">
+      <div className={`card-body p-5 ${flex && 'flex-row'}`}>
         {title && (
-          <h2 className="card-title" style={{ fontSize: '1rem' }}>
-            {title}
-          </h2>
+          <div className="flex justify-between">
+            <h2
+              className="card-title"
+              style={{ fontSize: '1rem', minWidth: '36px' }}
+            >
+              {title}
+            </h2>
+            {rightTitle && <h2>{rightTitle}</h2>}
+          </div>
         )}
         {children}
       </div>

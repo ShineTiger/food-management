@@ -18,10 +18,10 @@ const MealList = ({ meals }: MealListProp) => {
           <div className="divider">더보기</div>
         </div>
         <div className="collapse-content">
-          <MealItem time="아침" mealList={breakfast} />
-          <MealItem time="점심" mealList={lunch} />
-          <MealItem time="저녁" mealList={dinner} />
-          <MealItem time="간식" mealList={snack} />
+          {breakfast && <MealItem time="아침" mealList={breakfast} />}
+          {lunch && <MealItem time="점심" mealList={lunch} />}
+          {dinner && <MealItem time="저녁" mealList={dinner} />}
+          {snack && <MealItem time="간식" mealList={snack} />}
         </div>
       </div>
     </>
