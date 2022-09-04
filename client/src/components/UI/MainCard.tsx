@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import Meal from '../Main/Meal';
 
 interface MainCardProps {
   category: ReactElement;
