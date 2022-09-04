@@ -10,7 +10,7 @@ interface ButtonProps {
 const ModalButton = ({ label, leftIcon, rightIcon, id }: ButtonProps) => {
   return (
     <>
-      <label htmlFor={id} className="btn modal-button">
+      <label htmlFor={id} className="btn modal-button w-full">
         {leftIcon && leftIcon}
         {label}
         {rightIcon && rightIcon}

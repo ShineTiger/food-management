@@ -1,8 +1,4 @@
-import React from 'react';
-import Card from '../UI/Card';
-import BadgeTag from '../UI/BadgeTag';
 import MealItem from './MealItem';
-import { Divider } from '@chakra-ui/react';
 
 interface MealListProp {
   meals: DayMeals;
