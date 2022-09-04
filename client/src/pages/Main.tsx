@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import MainCard from '../components/UI/MainCard';
 import DayCalorie from '../components/Main/DayCalorie';
 import MealList from '../components/Main/MealList';
 import Modal from '../components/Main/Modal';
@@ -28,6 +29,7 @@ const Main = () => {
   return (
     <>
       <div>
+        \<MainCard category={<></>}></MainCard>
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body ">
             <h2 className="card-title">식사</h2>
