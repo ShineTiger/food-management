@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import MealList from '../components/MealList';
-import Modal from '../components/Modal';
+import MealList from '../components/Main/MealList';
+import Modal from '../components/Main/Modal';
 import { dummyFoodList, dummyMeals } from '../resource/Dummy';
 
 const Main = () => {
