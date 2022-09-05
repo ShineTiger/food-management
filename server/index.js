@@ -33,10 +33,11 @@ app.post("/api/test", async function (req, res) {
   });
 });
 
+//토큰유무확인을 위해 message를 잠시 object 형식으로 변경함
 app.post("/api/testSuccess", async function (req, res) {
   res.send({
     status: "success",
-    message: "worked successfully",
+    message: '{"worked": "successfully"}',
   });
 });
 
