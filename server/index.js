@@ -25,6 +25,28 @@ app.post("/api/getFoodNamesAll", async function (req, res) {
 //   res.send(Math.random() < 0.5 ? true : false);
 // });
 
+app.post("/api/test", async function (req, res) {
+  const success = Math.random() < 0.5;
+  res.send({
+    status: success ? "success" : "fail",
+    message: success ? "" : "Unknown Error",
+  });
+});
+
+app.post("/api/testSuccess", async function (req, res) {
+  res.send({
+    status: "success",
+    message: "worked successfully",
+  });
+});
+
+app.post("/api/testFail", async function (req, res) {
+  res.send({
+    status: "fail",
+    message: "something goes wrong",
+  });
+});
+
 app.listen(port, () => {
   console.log(`${port} hello server`);
 });

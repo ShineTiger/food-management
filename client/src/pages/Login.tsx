@@ -7,8 +7,13 @@ interface LoginFormType {
   pw: string;
 }
 const Login = () => {
-  const [enteredId, setEnteredId] = useState('');
-  const [enteredPw, setEnteredPw] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    watch,
+  } = useForm<LoginFormType>();
 
   const IdPwRegex = /^[a-zA-Z0-9]+$/;
   const navigate = useNavigate();
