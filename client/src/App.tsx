@@ -6,7 +6,7 @@ import Join from './pages/Join';
 import Login from './pages/Login';
 
 //components
-import Navbar from './components/Navbar';
+import Navbar from './components/Main/Navbar';
 
 function App() {
   return (
