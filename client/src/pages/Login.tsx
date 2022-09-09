@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,6 +26,7 @@ const Login = () => {
         //response type:object {status: string, message:string}
         if (response.data.status === 'success') {
           console.log(response.data.status);
+          localStorage.setItem('token', response.data.message);
           navigate('/');
         } else if (response.data.status === 'fail') {
           alert(response.data.message);
