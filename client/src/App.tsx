@@ -15,7 +15,7 @@ import Login from './pages/Login';
 import RequireAuth from './components/RequireAuth';
 
 //components
-import Navbar from './components/Navbar';
+import Navbar from './components/Main/Navbar';
 
 function App() {
   return (
