@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Join from './Join';
 
 interface LoginFormType {
   id: string;
@@ -27,7 +27,7 @@ const Login = () => {
         if (response.data.status === 'success') {
           console.log(response.data.status);
           localStorage.setItem('token', response.data.message);
-          navigate('/');
+          navigate('/', { replace: true });
         } else if (response.data.status === 'fail') {
           alert(response.data.message);
         } else if (response.data.status === 'error') {
@@ -37,8 +37,6 @@ const Login = () => {
       .catch(error => {
         alert(`${error} '원인을 알 수 없는 오류가 발생했습니다.'`);
       });
-
-    console.log(userdata);
   };
 
   return (
@@ -97,7 +95,9 @@ const Login = () => {
             {errors.pw && errors.pw.message && errors.pw.message}
           </span>
         </label>
-
+        <Link to={'../Join'} className="link">
+          회원가입
+        </Link>
         <button className="btn btn-block mt-4" type="submit">
           로그인
         </button>
