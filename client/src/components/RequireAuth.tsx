@@ -22,7 +22,7 @@ const RequireAuth = () => {
       {isLogined(getTokenValue(TOKEN_KEY)) ? (
         <Outlet />
       ) : (
-        <Navigate to="/Login" />
+        <Navigate to="/Login" replace={true} />
       )}
     </>
   );
