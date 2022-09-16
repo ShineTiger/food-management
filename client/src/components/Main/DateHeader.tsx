@@ -20,13 +20,12 @@ const DateHeader = () => {
   // 오늘 날짜인지 검사
   const isToday = isSameDay(currentDate, startOfDay(new Date()));
 
-  // - 그에 따라 뒤로가는 버튼 렌더
   // date 한글화
   registerLocale('ko', ko);
 
   return (
     <div className="flex items-center relative">
-      {isToday && <DateButton action={'prev'} />}
+      <DateButton action={'prev'} />
       <DatePicker
         className={`btn btn-ghost flex m-3 mx-auto text-red ${customStyle.dateBtn}`}
         selected={currentDate}
@@ -34,7 +33,7 @@ const DateHeader = () => {
         maxDate={new Date()} // 오늘 날짜 이후 선택 불가능
         popperPlacement="auto"
         locale="ko"
-        onChange={date => dispatch(setToday(date))}
+        onChange={newDate => newDate && dispatch(setToday(newDate))}
       />
       {!isToday && <DateButton action={'next'} />}
     </div>
