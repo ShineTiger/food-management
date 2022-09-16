@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { buttonAction, setToday } from '../../redux/slice/dateSlice';
+import { buttonAction } from '../../redux/slice/dateSlice';
 
 interface DateButtonType {
   action: 'prev' | 'next';
