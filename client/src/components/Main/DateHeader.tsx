@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import customStyle from './Custom.module.css';
@@ -7,12 +8,15 @@ import DateButton from './DateButton';
 import isSameDay from 'date-fns/isEqual';
 import { ko } from 'date-fns/esm/locale';
 import startOfDay from 'date-fns/startOfDay';
-interface DateHeader {
-  currentDate: Date;
-  setCurrentDate: Dispatch<SetStateAction<Date>>;
-}
 
-const DateHeader = ({ currentDate, setCurrentDate }: DateHeader) => {
+import { RootState } from '../../redux/store';
+import { setToday } from '../../redux/slice/dateSlice';
+
+const DateHeader = () => {
+  const dispatch = useDispatch();
+  const currentDate = useSelector(
+    (store: RootState) => store.dateInfo.todayDate,
+  );
   // 오늘 날짜인지 검사
   const isToday = isSameDay(currentDate, startOfDay(new Date()));
 
@@ -30,7 +34,7 @@ const DateHeader = ({ currentDate, setCurrentDate }: DateHeader) => {
         maxDate={new Date()} // 오늘 날짜 이후 선택 불가능
         popperPlacement="auto"
         locale="ko"
-        onChange={date => date && setCurrentDate(date)}
+        onChange={date => dispatch(setToday(date))}
       />
       {!isToday && <DateButton action={'next'} />}
     </div>

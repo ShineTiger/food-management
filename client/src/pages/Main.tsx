@@ -6,12 +6,10 @@ import DateHeader from '../components/Main/DateHeader';
 import startOfDay from 'date-fns/startOfDay';
 
 const Main = () => {
-  const [currentDate, setCurrentDate] = useState<Date>(startOfDay(new Date()));
-
   return (
     <>
       <div>
-        <DateHeader currentDate={currentDate} setCurrentDate={setCurrentDate} />
+        <DateHeader />
         <MainCard title="식사" category={<Meal></Meal>}></MainCard>
       </div>
     </>
