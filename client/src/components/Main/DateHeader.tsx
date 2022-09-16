@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import React, { Dispatch, SetStateAction } from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import isSameDay from 'date-fns/isEqual';
 import { ko } from 'date-fns/esm/locale';
+import startOfDay from 'date-fns/startOfDay';
 
-const DateHeader = () => {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+interface DateHeader {
+  currentDate: Date;
+  setCurrentDate: Dispatch<SetStateAction<Date>>;
+}
+
+const DateHeader = ({ currentDate, setCurrentDate }: DateHeader) => {
 
   // TODO: 오늘 날짜인지 검사
   // - 그에 따라 뒤로가는 버튼 렌더
