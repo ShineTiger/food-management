@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import customStyle from './Custom.module.css';
 
 import isSameDay from 'date-fns/isEqual';
 import { ko } from 'date-fns/esm/locale';
@@ -19,11 +20,13 @@ const DateHeader = ({ currentDate, setCurrentDate }: DateHeader) => {
   registerLocale('ko', ko);
 
   return (
-    <div>
+    <div className="flex items-center relative">
       <DatePicker
+        className={`btn btn-ghost flex m-3 mx-auto text-red ${customStyle.dateBtn}`}
         selected={currentDate}
         dateFormat={'yy.MM.dd'}
         maxDate={new Date()} // 오늘 날짜 이후 선택 불가능
+        popperPlacement="auto"
         locale="ko"
         onChange={date => date && setCurrentDate(date)}
       />
