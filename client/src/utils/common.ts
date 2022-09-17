@@ -7,7 +7,7 @@
  *
  */
 
-export const apiTest = (dummyUrl: string, input?: any, output?: any) => {
+export const apiTest: any = (dummyUrl: string, input?: any, output?: any) => {
   return new Promise((resolve, reject) => {
     const response = { data: output ? output : 'Hello World!' }; // dummy response
     resolve(response);
