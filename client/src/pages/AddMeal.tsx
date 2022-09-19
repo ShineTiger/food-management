@@ -4,6 +4,7 @@ import addmealCss from './AddMeal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { setFoodNames } from '../redux/slice/foodNameSlice';
+import { Link } from 'react-router-dom';
 
 const dummyData = [
   { id: 1, name: '바나나' },
@@ -89,11 +90,6 @@ const AddMeal = () => {
     dispatch(setFoodNames(dummyData));
   }, []);
 
-  // 콘솔 확인용 useEffect
-  useEffect(() => {
-    console.log(checkedItem);
-  }, [checkedItem]);
-
   return (
     <div className="flex flex-col w-full">
       <form className="mt-4" onSubmit={e => e.preventDefault()}>
@@ -140,9 +136,9 @@ const AddMeal = () => {
         </div>
         <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
         {checkedItem.length !== 0 && (
-          <button className="btn btn-block mt-4" type="submit">
+          <Link to={'/CheckMeal'} className="btn btn-block mt-4" type="submit">
             다음
-          </button>
+          </Link>
         )}
       </form>
     </div>
