@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import dateSlice from './slice/dateSlice';
 import foodNameSlice from './slice/foodNameSlice';
+import selectedFoodsSlice from './slice/seletedFoodSlice';
 // ...
 const store = configureStore({
   reducer: {
     foodNames: foodNameSlice,
     dateInfo: dateSlice,
+    selectedFoods: selectedFoodsSlice,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
