@@ -5,7 +5,7 @@ import Main from './pages/Main';
 import Join from './pages/Join';
 import Login from './pages/Login';
 import RequireAuth from './components/RequireAuth';
-import CheckMeal from './pages/CheckMeal';
+import SelectedMeal from './pages/SelectedMeal';
 
 //components
 import Navbar from './components/Main/Navbar';
@@ -23,7 +23,7 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="/" element={<Main />} />
               <Route path="/AddMeal" element={<AddMeal />} />
-              <Route path="/CheckMeal" element={<CheckMeal />} />
+              <Route path="/SelectedMeal" element={<SelectedMeal />} />
             </Route>
           </Routes>
         </div>

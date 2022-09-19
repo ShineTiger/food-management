@@ -141,7 +141,11 @@ const AddMeal = () => {
         </div>
         <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
         {selectedFood.length !== 0 && (
-          <Link to={'/CheckMeal'} className="btn btn-block mt-4" type="submit">
+          <Link
+            to={'/SelectedMeal'}
+            className="btn btn-block mt-4"
+            type="submit"
+          >
             다음
           </Link>
         )}
