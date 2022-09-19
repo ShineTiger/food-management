@@ -1,7 +1,6 @@
 import React from 'react';
 import BadgeTag from '../UI/BadgeTag';
 import Card from '../UI/Card';
-import styles from './Modal.module.css';
 
 interface MealItemProp {
   mealList: Food[];
@@ -15,8 +14,6 @@ const MealItem = ({ mealList, time }: MealItemProp) => {
   });
 
   calorie = Math.round(calorie);
-
-  console.log(calorie);
 
   return (
     <Card title={time} rightTitle={`${calorie} kcal`}>
