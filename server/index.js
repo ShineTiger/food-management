@@ -14,26 +14,38 @@ const foodData = db.collection(process.env.DB_COLL_FOOD);
 
 app.use(cors());
 
-app.post('/api/test', async function (req, res) {
-    const success = Math.random() < 0.5;
-    res.send({
-        status: success ? "success" : "fail",
-        message: success ? "" : "Unknown Error",
-    });
+app.post("/api/getFoodNamesAll", async function (req, res) {
+  const result = (await foodData.find().toArray()).map((i) => i.식품명);
+  console.log(result);
+  res.send(result);
 });
 
-app.post('/api/testSuccess', async function (req, res) {
-    res.send({
-        status: "success",
-        message: "worked successfully"
-    });
+//id 중복확인용 일회용 랜덤 api
+// app.post("/api/checkIdDuplicate", function (req, res) {
+//   res.send(Math.random() < 0.5 ? true : false);
+// });
+
+app.post("/api/test", async function (req, res) {
+  const success = Math.random() < 0.5;
+  res.send({
+    status: success ? "success" : "fail",
+    message: success ? "" : "Unknown Error",
+  });
 });
 
-app.post('/api/testFail', async function (req, res) {
-    res.send({
-        status: "fail",
-        message: "something goes wrong"
-    });
+//토큰유무확인을 위해 message를 잠시 object 형식으로 변경함
+app.post("/api/testSuccess", async function (req, res) {
+  res.send({
+    status: "success",
+    message: '{"worked": "successfully"}',
+  });
+});
+
+app.post("/api/testFail", async function (req, res) {
+  res.send({
+    status: "fail",
+    message: "something goes wrong",
+  });
 });
 
 app.listen(port, () => {
