@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.14",
+    "@types/react-datepicker": "^4.4.2",
     "@types/react-dom": "^18.0.5",
     "@types/react-router": "^5.1.18",
     "@types/react-router-dom": "^5.3.3",
