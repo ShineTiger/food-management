@@ -51,6 +51,12 @@ const AddMeal = () => {
     dispatch(setSelectedFood(selectedFood.filter(el => el !== name)));
   };
 
+  const submitSeletedFood = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
+  };
+
   const CompleteBox = () => {
     const matchTextList = foodNameList.filter(
       text => regexValue && text.name.match(regexValue.source),
@@ -93,7 +99,7 @@ const AddMeal = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <form className="mt-4" onSubmit={e => e.preventDefault()}>
+      <form className="mt-4" onSubmit={e => submitSeletedFood} id="AddMeal">
         <div className="form-control">
           {selectedFood.length !== 0 && (
             <p>{selectedFood.length}개 선택했습니다</p>
