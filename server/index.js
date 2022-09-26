@@ -25,6 +25,26 @@ app.post("/api/getFoodNamesAll", async function (req, res) {
 //   res.send(Math.random() < 0.5 ? true : false);
 // });
 
+//test용 api
+app.get("/api/foodName", async function (req, res) {
+  res.send({
+    status: "success",
+    message: [
+      { id: 1, name: "바나나" },
+      { id: 2, name: "바닐라라떼" },
+      { id: 3, name: "바나나우유" },
+      { id: 4, name: "보리밥" },
+      { id: 5, name: "자라탕" },
+      { id: 6, name: "장조림" },
+      { id: 7, name: "밤밥" },
+      { id: 8, name: "반역" },
+      { id: 9, name: "부라보" },
+      { id: 10, name: "보라색보라돌이는포도를" },
+      { id: 11, name: "바나나색텔레토비는나나를" },
+    ],
+  });
+});
+
 app.post("/api/test", async function (req, res) {
   const success = Math.random() < 0.5;
   res.send({

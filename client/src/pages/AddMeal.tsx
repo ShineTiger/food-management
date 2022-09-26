@@ -6,26 +6,13 @@ import { RootState } from '../redux/store';
 import { setFoodNames } from '../redux/slice/foodNameSlice';
 import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { Link } from 'react-router-dom';
-
-const dummyData = [
-  { id: 1, name: '바나나' },
-  { id: 2, name: '바닐라라떼' },
-  { id: 3, name: '바나나우유' },
-  { id: 4, name: '보리밥' },
-  { id: 5, name: '자라탕' },
-  { id: 6, name: '장조림' },
-  { id: 7, name: '밤밥' },
-  { id: 8, name: '반역' },
-  { id: 9, name: '부라보' },
-  { id: 10, name: '보라색보라돌이는포도를' },
-  { id: 11, name: '바나나색텔레토비는나나를' },
-];
+import axios, { Axios } from 'axios';
 
 const AddMeal = () => {
   const dispatch = useDispatch();
-  const foodNameList: FoodNameType[] = useSelector(
-    (store: RootState) => store.foodNames.foodNameList,
-  );
+  // const foodNameList: FoodNameType[] = useSelector(
+  //   (store: RootState) => store.foodNames.foodNameList,
+  // );
 
   const selectedFood: string[] = useSelector(
     (store: RootState) => store.selectedFoods.checkedInput,
@@ -33,6 +20,16 @@ const AddMeal = () => {
 
   const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
   const [regexValue, setRegexValue] = useState<RegExp>(); //검색창에 들어가는 값을 정규식으로 변환해서 들어가는 값(라이브러리 이용할때 씀)
+  const [foodNameList, setFoodNameList] = useState<FoodNameType[]>([]);
+
+  // const foodNameData = axios.get('/api/foodName').then(function (res) {
+  //   return res.data.message;
+  // });
+
+  const fetchData = async () => {
+    const foodData = (await axios.get('/api/foodName')).data.message;
+    setFoodNameList(foodData);
+  };
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const getKorean: RegExp = getRegExp(e.target.value, {});
@@ -91,8 +88,7 @@ const AddMeal = () => {
 
   // 페이지 입장시 최초 1회 음식 이름 리스트 로드
   useEffect(() => {
-    // TODO: 더미데이터 => API 응답 데이터
-    dispatch(setFoodNames(dummyData));
+    fetchData();
   }, []);
 
   return (
