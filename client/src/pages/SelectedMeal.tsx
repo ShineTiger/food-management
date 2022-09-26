@@ -1,35 +1,105 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
+import axios, { Axios } from 'axios';
 
 const SelectedMeal = () => {
-  // AddMeal 페이지에서 했던 post 요청을 get 요청할 수 있으나 redux를 쓰고싶으니까 생략
+  const [totalFoodCalorie, setTotalFoodCalorie] = useState();
+
+  const dispatch = useDispatch();
 
   const selectedFood: string[] = useSelector(
     (store: RootState) => store.selectedFoods.checkedInput,
   );
 
+  const fetchCalorieData = async () => {
+    const calorieData = (await axios.get('/api/foodCalorie')).data.message;
+    setTotalFoodCalorie(calorieData);
+  };
+
+  const submitSeletedFood = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
+  };
+
+  const onRemoved = (name: string) => {
+    dispatch(setSelectedFood(selectedFood.filter(el => el !== name)));
+  };
+
+  const onReset = () => {
+    dispatch(setSelectedFood([]));
+  };
+
+  // 페이지 입장시 칼로리 합계 요청
+  useEffect(() => {
+    fetchCalorieData();
+  }, []);
+
   return (
     <>
-      <p>
-        <span>총칼로리</span>
-        <span>{selectedFood}</span>
-      </p>
-      <ul className="menu bg-base-100 rounded-box">
-        <li>
-          <a></a>
-        </li>
-        <li>
-          <a>ccc</a>
-        </li>
-        <li>
-          <a>+ nav to AddMeal Page</a>
-        </li>
-      </ul>
-      <Link to={'/'} className="btn btn-block mt-4" type="submit">
-        완료
-      </Link>
+      <div className="text-center my-6">
+        <p className="text-xl	">총칼로리</p>
+        <p className="text-3xl	">{totalFoodCalorie}</p>
+      </div>
+      <form
+        onSubmit={e => {
+          submitSeletedFood;
+        }}
+        id="SelectedMeal"
+      >
+        <div className="form-control">
+          <ul className="bg-base-100 rounded-box">
+            {selectedFood.map((name, index) => {
+              return (
+                <li
+                  className="flex items-center justify-between p-3 border-b border-solid  border-slate-800"
+                  key={index}
+                >
+                  <span>{name}</span>
+                  <button
+                    className="btn-sm"
+                    onClick={() => {
+                      onRemoved(name);
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+          <Link
+            to={'/AddMeal'}
+            className="p-3 bg-inherit	bg-slate-800 text-white"
+          >
+            음식추가 +{' '}
+          </Link>
+        </div>
+        <Link
+          to={'/'}
+          className="btn btn-block mt-4"
+          type="submit"
+          onClick={onReset}
+        >
+          완료
+        </Link>
+      </form>
     </>
   );
 };
