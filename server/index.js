@@ -45,6 +45,14 @@ app.get("/api/foodName", async function (req, res) {
   });
 });
 
+//test용 api - 칼로리계산
+app.get("/api/foodCalorie", async function (req, res) {
+  res.send({
+    status: "success",
+    message: "1000",
+  });
+});
+
 app.post("/api/test", async function (req, res) {
   const success = Math.random() < 0.5;
   res.send({
