@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { buttonAction } from '../../redux/slice/dateSlice';
+import { setNextDate, setPrevDate } from '../../redux/slice/dateSlice';
 
 interface DateButtonType {
   action: 'prev' | 'next';
@@ -11,7 +11,7 @@ const DateButton = ({ action }: DateButtonType) => {
   return (
     <button
       onClick={() => {
-        dispatch(buttonAction(action));
+        dispatch(action === 'prev' ? setPrevDate() : setNextDate());
       }}
       className={`btn btn-ghost absolute z-[1] ${
         action === 'next' && 'right-0'

@@ -12,16 +12,16 @@ const dateSlice = createSlice({
       state.todayDate = payload;
     },
 
-    buttonAction(state, { payload }: PayloadAction<'prev' | 'next'>) {
-      if (payload === 'next') {
-        state.todayDate = addDays(state.todayDate, 1);
-      } else {
-        state.todayDate = addDays(state.todayDate, -1);
-      }
+    setPrevDate(state) {
+      state.todayDate = addDays(state.todayDate, -1);
+    },
+
+    setNextDate(state) {
+      state.todayDate = addDays(state.todayDate, +1);
     },
   },
 });
 
-export const { setToday, buttonAction } = dateSlice.actions;
+export const { setToday, setPrevDate, setNextDate } = dateSlice.actions;
 
 export default dateSlice.reducer;
