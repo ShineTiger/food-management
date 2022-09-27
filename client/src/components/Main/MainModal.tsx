@@ -3,6 +3,7 @@ import ModalCard from '../UI/ModalCard';
 import ModalButton from '../UI/ModlButton';
 import { Link, useNavigate } from 'react-router-dom';
 import modalCss from './Custom.module.css';
+import axios, { Axios } from 'axios';
 
 const MainModal = () => {
   // TODO: 이날 먹은 음식이 있는지 검사
@@ -12,6 +13,7 @@ const MainModal = () => {
 
   const handleSelect = (queryName: string) => {
     setTimeout(() => navigate(`/Addmeal?type=${queryName}`), 200);
+    axios.post('/api/testSuccess', queryName);
   };
 
   return (
@@ -31,7 +33,12 @@ const MainModal = () => {
           </li>
           <li>
             <Link to="/Addmeal?type=lunch">
-              <input type="checkbox" name="lunch" className="checkbox mr-2.5" />
+              <input
+                type="checkbox"
+                name="lunch"
+                onChange={() => handleSelect('lunch')}
+                className="checkbox mr-3"
+              />
               <label htmlFor="lunch">점심</label>
             </Link>
           </li>
@@ -40,14 +47,20 @@ const MainModal = () => {
               <input
                 type="checkbox"
                 name="dinner"
-                className="checkbox mr-2.5"
+                onChange={() => handleSelect('dinner')}
+                className="checkbox mr-3"
               />
               <label htmlFor="dinner">저녁</label>
             </Link>
           </li>
           <li>
             <Link to="/Addmeal?type=snack">
-              <input type="checkbox" name="snack" className="checkbox mr-2.5" />
+              <input
+                type="checkbox"
+                name="snack"
+                onChange={() => handleSelect('snack')}
+                className="checkbox mr-3"
+              />
               <label htmlFor="snack">간식</label>
             </Link>
           </li>
