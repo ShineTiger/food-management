@@ -24,9 +24,11 @@ const Join = () => {
   const navigate = useNavigate();
 
   const onValid: SubmitHandler<JoinFormType> = userdata => {
+    const hashed = CryptoJS.SHA256(userdata.pw);
+
     //회원가입 폼 전달
     axios
-      .post('/api/test', { userdata })
+      .post('/api/test', (userdata.id, hashed, userdata.nick))
       .then(response => {
         console.log(response.data);
         if (
