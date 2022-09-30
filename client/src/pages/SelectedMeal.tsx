@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import axios, { Axios } from 'axios';
 
 const SelectedMeal = () => {
-  const [totalFoodCalorie, setTotalFoodCalorie] = useState();
+  const [foodCalorieArr, setFoodCalorieArr] = useState<number[]>([]);
+  const [totalFoodCalorie, setTotalFoodCalorie] = useState<number>();
 
   const dispatch = useDispatch();
 
@@ -15,25 +16,36 @@ const SelectedMeal = () => {
   );
 
   const fetchCalorieData = async () => {
-    const calorieData = (await axios.get('/api/foodCalorie')).data.message;
-    setTotalFoodCalorie(calorieData);
+    const calorieData: number[] = (
+      await axios.post('/api/foodCalorie', { selectedFood })
+    ).data.message;
+    setFoodCalorieArr(calorieData);
+    setTotalFoodCalorie(calorieData.reduce((prev, current) => prev + current));
   };
 
   const submitSeletedFood = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
     axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
 
   const onRemoved = (name: string) => {
     dispatch(setSelectedFood(selectedFood.filter(el => el !== name)));
+    const removeIndex = selectedFood.indexOf(
+      selectedFood.filter(el => el === name).toString(),
+    );
+
+    //undefined의 경우일때 TS에러를 일으키므로 if문으로 감싼다.
+    if (totalFoodCalorie) {
+      setTotalFoodCalorie(totalFoodCalorie - foodCalorieArr[removeIndex]);
+    }
+    setFoodCalorieArr(foodCalorieArr.splice(removeIndex, 1));
   };
 
   const onReset = () => {
     dispatch(setSelectedFood([]));
   };
 
-  // 페이지 입장시 칼로리 합계 요청
+  // 페이지 입장시 칼로리 요청
   useEffect(() => {
     fetchCalorieData();
   }, []);
@@ -60,6 +72,7 @@ const SelectedMeal = () => {
                 >
                   <span>{name}</span>
                   <button
+                    type="button"
                     className="btn-sm"
                     onClick={() => {
                       onRemoved(name);

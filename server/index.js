@@ -46,10 +46,10 @@ app.get("/api/foodName", async function (req, res) {
 });
 
 //test용 api - 칼로리계산
-app.get("/api/foodCalorie", async function (req, res) {
+app.post("/api/foodCalorie", async function (req, res) {
   res.send({
     status: "success",
-    message: "1000",
+    message: [400, 300, 200],
   });
 });
 
