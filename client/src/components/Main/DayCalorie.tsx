@@ -5,10 +5,11 @@ interface DayKcalProp {
 }
 
 const DayCalorie = ({ totalCalorie }: DayKcalProp) => {
+  const RECOMMENDED_CALORIE = 2000; // 권장섭취량
+
   return (
     <div className="stat">
-      <div className="stat-value text-3xl text-center">
-        {`${totalCalorie} / 2000`}
+        <span> / {RECOMMENDED_CALORIE}</span>
         <span className="text-xl ml-2">kcal</span>
       </div>
     </div>
