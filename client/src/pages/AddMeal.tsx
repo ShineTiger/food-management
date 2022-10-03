@@ -111,6 +111,7 @@ const AddMeal = () => {
                   <span className="badge mr-1.5" key={index}>
                     {name}
                     <button
+                      type="button"
                       value={name}
                       onClick={() => {
                         onRemoved(name);

@@ -24,11 +24,9 @@ const Join = () => {
   const navigate = useNavigate();
 
   const onValid: SubmitHandler<JoinFormType> = userdata => {
-    const hashed = CryptoJS.SHA256(userdata.pw);
-
     //회원가입 폼 전달
     axios
-      .post('/api/test', (userdata.id, hashed, userdata.nick))
+      .post('/api/test', { userdata })
       .then(response => {
         console.log(response.data);
         if (
@@ -72,7 +70,7 @@ const Join = () => {
             validate: {
               idConfirm: async (val: string) => {
                 const data = (
-                  await axios.post('/api/test', {
+                  await axios.post('/api/testSuccess', {
                     val,
                   })
                 ).data;
