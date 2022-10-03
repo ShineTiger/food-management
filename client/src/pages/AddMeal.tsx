@@ -10,9 +10,6 @@ import axios, { Axios } from 'axios';
 
 const AddMeal = () => {
   const dispatch = useDispatch();
-  // const foodNameList: FoodNameType[] = useSelector(
-  //   (store: RootState) => store.foodNames.foodNameList,
-  // );
 
   const selectedFood: string[] = useSelector(
     (store: RootState) => store.selectedFoods.checkedInput,
@@ -21,10 +18,6 @@ const AddMeal = () => {
   const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
   const [regexValue, setRegexValue] = useState<RegExp>(); //검색창에 들어가는 값을 정규식으로 변환해서 들어가는 값(라이브러리 이용할때 씀)
   const [foodNameList, setFoodNameList] = useState<FoodNameType[]>([]);
-
-  // const foodNameData = axios.get('/api/foodName').then(function (res) {
-  //   return res.data.message;
-  // });
 
   const fetchData = async () => {
     const foodData = (await axios.get('/api/foodName')).data.message;
