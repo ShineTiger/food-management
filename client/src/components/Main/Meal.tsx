@@ -20,13 +20,13 @@ const Meal = () => {
 
   if (daysMeal) {
     Object.values(daysMeal).forEach(time => {
-      console.log(time);
-      if (!time) return;
-      time.forEach((food: Food) => {
-        totalCalorie += food.kiloCalories;
-      });
-
-      totalCalorie = Math.round(totalCalorie);
+      for (const i in time) {
+        if (time[i] === null) return; // null time 건너뛰기
+        time[i].forEach((food: Food) => {
+          totalCalorie += food.kiloCalories; // 모든 칼로리 더하기
+        });
+        totalCalorie = Math.round(totalCalorie);
+      }
     });
   }
 
@@ -38,8 +38,7 @@ const Meal = () => {
         '',
         dummyMeals,
       );
-      console.log(response);
-      // setDaysMeal(response);
+      setDaysMeal(response);
     };
     fetchData();
   }, [dummyCurrentDateString]);
@@ -47,7 +46,7 @@ const Meal = () => {
   return (
     <>
       <DayCalorie totalCalorie={totalCalorie}></DayCalorie>
-      <MainModal></MainModal>
+      <MainModal />
       {daysMeal && <MealList meals={daysMeal}></MealList>}
     </>
   );
