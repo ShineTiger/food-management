@@ -25,44 +25,41 @@ const MainModal = () => {
             <label className={`label cursor-pointer ${modalCss.nogap}`}>
               <input
                 type="checkbox"
-                onChange={() => handleSelect('morning')}
-                className="checkbox checkbox-sm mr-3"
+                onChange={() => handleSelect('breakfast')}
+                className="checkbox mr-3"
               />
-              <span className="label-text">아침</span>
+              <span>아침</span>
             </label>
           </li>
           <li>
-            <Link to="/Addmeal?type=lunch">
+            <label className={`label cursor-pointer ${modalCss.nogap}`}>
               <input
                 type="checkbox"
-                name="lunch"
                 onChange={() => handleSelect('lunch')}
                 className="checkbox mr-3"
               />
-              <label htmlFor="lunch">점심</label>
-            </Link>
+              <span>점심</span>
+            </label>
           </li>
           <li>
-            <Link to="/Addmeal?type=dinner">
+            <label className={`label cursor-pointer ${modalCss.nogap}`}>
               <input
                 type="checkbox"
-                name="dinner"
                 onChange={() => handleSelect('dinner')}
                 className="checkbox mr-3"
               />
-              <label htmlFor="dinner">저녁</label>
-            </Link>
+              <span>저녁</span>
+            </label>
           </li>
           <li>
-            <Link to="/Addmeal?type=snack">
+            <label className={`label cursor-pointer ${modalCss.nogap}`}>
               <input
                 type="checkbox"
-                name="snack"
                 onChange={() => handleSelect('snack')}
                 className="checkbox mr-3"
               />
-              <label htmlFor="snack">간식</label>
-            </Link>
+              <span>간식</span>
+            </label>
           </li>
         </ul>
       </ModalCard>
