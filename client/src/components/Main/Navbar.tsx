@@ -7,11 +7,8 @@ const Navbar = () => {
   //useSearchParams로 상위컴포넌트에서 보내주는 QS문을 받는다. 그리고 배열형식으로 반환한다.
   const type = searchParams.get('type');
 
-  //console.log(type);
   useEffect(() => {
-    //console.log(window.location.pathname);
     if (window.location.pathname === '/Addmeal') {
-      //console.log(type);
       switch (type) {
         case 'brackfast':
           setTitle('아침');

@@ -28,7 +28,6 @@ const Join = () => {
     axios
       .post('/api/test', { userdata })
       .then(response => {
-        console.log(response.data);
         if (
           response.data.status === 'success' &&
           response.data.message === ''
@@ -44,8 +43,6 @@ const Join = () => {
       .catch(error => {
         alert(`${error} '원인을 알 수 없는 오류가 발생했습니다.'`);
       });
-
-    console.log(userdata);
   };
 
   return (

@@ -25,7 +25,6 @@ const Login = () => {
       .then(response => {
         //response type:object {status: string, message:string}
         if (response.data.status === 'success') {
-          console.log(response.data.status);
           localStorage.setItem('token', response.data.message);
           navigate('/', { replace: true });
         } else if (response.data.status === 'fail') {

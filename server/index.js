@@ -20,11 +20,6 @@ app.post("/api/getFoodNamesAll", async function (req, res) {
   res.send(result);
 });
 
-//id 중복확인용 일회용 랜덤 api
-// app.post("/api/checkIdDuplicate", function (req, res) {
-//   res.send(Math.random() < 0.5 ? true : false);
-// });
-
 //test용 api
 app.get("/api/foodName", async function (req, res) {
   res.send({
