@@ -1,8 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 
 const ProfileAvatar = () => {
+  const navigate = useNavigate();
   return (
-    <label className="btn  btn-circle avatar">
+    <label
+      onClick={() => {
+        navigate('/mypage');
+      }}
+      className="btn btn-circle avatar"
+    >
       <div className="rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
