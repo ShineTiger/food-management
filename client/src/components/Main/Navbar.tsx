@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
-            <ProfileAvatar />
+            <ProfileAvatar hasClickEvent={true} />
           </div>
         </div>
       </div>

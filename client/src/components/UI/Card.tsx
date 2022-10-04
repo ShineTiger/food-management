@@ -6,7 +6,7 @@ interface CardProps {
   color?: 'bg-primary' | 'bg-secondary' | 'bg-accent' | string;
   children?: ReactNode;
   flex?: boolean;
-  rightTitle: string;
+  rightTitle?: string;
 }
 
 const Card = ({
