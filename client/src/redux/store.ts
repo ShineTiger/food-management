@@ -1,6 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import dateSlice from './slice/dateSlice';
 import foodNameSlice from './slice/foodNameSlice';
+import loginUserSlice from './slice/loginUserSlice';
 import selectedFoodsSlice from './slice/seletedFoodSlice';
 // ...
 const store = configureStore({
@@ -8,6 +9,7 @@ const store = configureStore({
     foodNames: foodNameSlice,
     dateInfo: dateSlice,
     selectedFoods: selectedFoodsSlice,
+    loginUserInfo: loginUserSlice,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,
