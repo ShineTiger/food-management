@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import ProfileAvatar from '../UI/ProfileAvatar';
 
 const Navbar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -7,11 +8,8 @@ const Navbar = () => {
   //useSearchParams로 상위컴포넌트에서 보내주는 QS문을 받는다. 그리고 배열형식으로 반환한다.
   const type = searchParams.get('type');
 
-  //console.log(type);
   useEffect(() => {
-    //console.log(window.location.pathname);
     if (window.location.pathname === '/Addmeal') {
-      //console.log(type);
       switch (type) {
         case 'brackfast':
           setTitle('아침');
@@ -43,11 +41,7 @@ const Navbar = () => {
         </div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
-            <label className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people" />
-              </div>
-            </label>
+            <ProfileAvatar hasClickEvent={true} />
           </div>
         </div>
       </div>

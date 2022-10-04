@@ -37,7 +37,6 @@ const Meal = () => {
         { date: dummyCurrentDateString },
         dummyMeals,
       );
-      console.log(response.data);
       setDaysMeal(response.data);
     };
     fetchData();

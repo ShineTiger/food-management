@@ -9,6 +9,7 @@ import SelectedMeal from './pages/SelectedMeal';
 
 //components
 import Navbar from './components/Main/Navbar';
+import MyPage from './components/MyPage/MyPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="/AddMeal" element={<AddMeal />} />
               <Route path="/SelectedMeal" element={<SelectedMeal />} />
+              <Route path="/mypage" element={<MyPage />} />
             </Route>
           </Routes>
         </div>

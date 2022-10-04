@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { setLoginUser } from '../redux/slice/loginUserSlice';
 import Join from './Join';
 
 interface LoginFormType {
@@ -8,6 +10,7 @@ interface LoginFormType {
   pw: string;
 }
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -23,10 +26,11 @@ const Login = () => {
     axios
       .post('/api/testSuccess', { userdata })
       .then(response => {
-        //response type:object {status: string, message:string}
+        console.log(userdata.id);
+        // 로그인 성공시
         if (response.data.status === 'success') {
-          console.log(response.data.status);
           localStorage.setItem('token', response.data.message);
+          dispatch(setLoginUser({ id: userdata.id, name: userdata.id }));
           navigate('/', { replace: true });
         } else if (response.data.status === 'fail') {
           alert(response.data.message);
