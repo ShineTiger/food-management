@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { apiTest } from '../../utils/common';
 import Card from '../UI/Card';
 import ProfileAvatar from '../UI/ProfileAvatar';
+import Menu from './Menu';
 
 const MyPage = () => {
   interface UserDataType {
@@ -38,15 +39,7 @@ const MyPage = () => {
             <span className="text-xs">{userData.id}</span>
           </div>
         </div>
-        <ul className="menu bg-base-100 p-2 rounded-box text-center">
-          <div className="divider"></div>
-          <li>
-            <a className="text-center">로그아웃</a>
-          </li>
-          <li>
-            <a className="text-error text-center">회원탈퇴</a>
-          </li>
-        </ul>
+        <Menu />
       </Card>
     </div>
   );
