@@ -14,7 +14,8 @@ const Menu = () => {
         <button onClick={removeToken}>로그아웃</button>
       </li>
       <li className="text-error text-center">
-        <button>회원탈퇴 문의</button>
+        회원탈퇴 문의는
+        <br /> shinetiger.dev@gmail.com 으로 부탁드립니다
       </li>
     </ul>
   );
