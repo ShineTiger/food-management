@@ -11,7 +11,7 @@ const Navbar = () => {
   useEffect(() => {
     if (window.location.pathname === '/Addmeal') {
       switch (type) {
-        case 'brackfast':
+        case 'breakfast':
           setTitle('아침');
           break;
 
@@ -25,9 +25,6 @@ const Navbar = () => {
 
         case 'snack':
           setTitle('간식');
-          break;
-
-        default:
           break;
       }
     }
