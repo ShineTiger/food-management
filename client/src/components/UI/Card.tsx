@@ -19,7 +19,7 @@ const Card = ({
 }: CardProps) => {
   return (
     <div
-      className={`card mb-2 mt-2 ${style ? style : 'card-bordered'} ${
+      className={`card mb-2 ${style ? style : 'card-bordered'} ${
         color && color
       }`}
     >

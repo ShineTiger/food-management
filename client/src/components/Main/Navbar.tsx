@@ -11,7 +11,7 @@ const Navbar = () => {
   useEffect(() => {
     if (window.location.pathname === '/Addmeal') {
       switch (type) {
-        case 'brackfast':
+        case 'breakfast':
           setTitle('아침');
           break;
 
@@ -26,10 +26,9 @@ const Navbar = () => {
         case 'snack':
           setTitle('간식');
           break;
-
-        default:
-          break;
       }
+    } else {
+      setTitle('음식 기록장');
     }
   });
 
@@ -41,7 +40,7 @@ const Navbar = () => {
         </div>
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
-            <ProfileAvatar hasClickEvent={true} />
+            <ProfileAvatar hasClickEvent={true} isFilled={{ fill: 'white' }} />
           </div>
         </div>
       </div>
