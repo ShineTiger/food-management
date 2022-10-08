@@ -27,6 +27,8 @@ const Navbar = () => {
           setTitle('간식');
           break;
       }
+    } else {
+      setTitle('음식 기록장');
     }
   });
 
