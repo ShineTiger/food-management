@@ -35,9 +35,8 @@ const MyPage = () => {
     <div>
       <Card color="bg-white">
         <div className={'flex justify-center my-10'}>
-          <div className="flex w-20 h-20 rounded-full justify-center bg-slate-500">
-            <ProfileAvatar isBigSize={true}></ProfileAvatar>
-          </div>
+          <ProfileAvatar isBigSize={true}></ProfileAvatar>
+
           <div className="mx-5 flex flex-col justify-center">
             <h3>{reduxUserData.name}</h3>
             <span className="text-xs">{reduxUserData.id}</span>
