@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+<h1 align="middle"> 마이 칼로리 </h1>
+<p align="middle">다이어트가 만성화 된 사회. <br />
+이전에는 '살을 빼는것' 이 주된 트렌드 였다면 지금은 평소 먹는 음식들을 확인하고 먹으면서 '살을 뺀다' 는 고통스러운 단계까지 가는 것을 예방합니다.<br />
+이 앱은 자신이 먹은 음식을 기록하고 칼로리를 확인하면서 식단관리를 시도 할 수 있습니다 
+ </p>
+<p align="middle"><img src="https://img.shields.io/badge/version-0.8.0-yellow"></p>
+<!-- <img alt="레이아웃" src="https://user-images.githubusercontent.com/94972549/186824829-a31b6c50-fc04-4306-bd09-37b7b3466984.png" ) -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 소개
 
-## Available Scripts
+이미지 들어갈 예정
 
-In the project directory, you can run:
+<!--이미지 -->
 
-### `npm start`
+## ✔ 주요기능 및 GIF
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<details>
+<summary> 자체 회원가입, 로그인, 로그아웃 </summary>
+</details>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<details>
+<summary> 날짜를 선택해서 먹은 음식을 확인할 수 있습니다. </summary>
+</details>
 
-### `npm test`
+<details>
+<summary> 아침, 점심, 저녁, 간식 중 하나를 선택할 수 있습니다. </summary>
+</details>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<details>
+<summary> 검색을 통해 음식을 검색하고 등록, 삭제 할 수 있습니다. </summary>
+</details>
 
-### `npm run build`
+<details>
+<summary> 등록한 음식의 칼로리 총합을 알 수 있습니다. </summary>
+</details>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🛠 패치노트
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 10.10 - 0.8v 주요기능 구현 완료
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📌기술스택
 
-### `npm run eject`
+### Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=%23323330) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Axios](https://img.shields.io/badge/axios-5A29E4.svg?style=for-the-badge&logo=axios&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white) ![React Router](https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white) ![React Hook Form](https://img.shields.io/badge/react--Hook--Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white) ![Tailwind](https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white) ![Daisy UI](https://img.shields.io/badge/daisyui-dd34d8?style=for-the-badge&logo=daisyUI&logoColor=white) ![CSS Module](https://img.shields.io/badge/css--module-000000?style=for-the-badge&logo=cssmodules&logoColor=ffffff)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Backend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![express](https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=ffffff) ![awsec2](https://img.shields.io/badge/aws--ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=ffffff) ![awspm2](https://img.shields.io/badge/aws--pm2-FF4F8B?style=for-the-badge&logo=amazonpm2&logoColor=ffffff)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 팀원
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+| 아이디(깃헙링크) | Position |
+| --- | --- |
+| [ShineTiger](https://github.com/ShineTiger) | 💻 Front-end, 🌟 Team leader |
+| [hamsoter](https://github.com/hamsoter) | 💻 Front-end |
+| [Revi-Universe](https://github.com/Revi-Universe) | 💻 Back-end |
