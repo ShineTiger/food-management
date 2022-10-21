@@ -23,6 +23,4 @@ const keyChange = function (source) {
   return source;
 };
 
-module.exports = {
-  keyChange: keyChange,
-};
+module.exports = keyChange;
