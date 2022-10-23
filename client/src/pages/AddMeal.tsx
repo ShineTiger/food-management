@@ -50,20 +50,36 @@ const AddMeal = () => {
     axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
 
-  const CompleteBox = () => {
-    const matchTextList = foodNameList.filter(
-      text => regexValue && text.name.match(regexValue.source),
+  const AutoCompleteBox = () => {
+    const matchWordList = foodNameList.filter(text =>
+      text.name.match(regexValue!),
     );
+
+    const getHighlightedText = (text: string, highlight: string) => {
+      const parts: string[] | undefined = text.split(
+        new RegExp(`(${highlight})`),
+      );
+      return (
+        <span>
+          {parts.map((part, i) =>
+            part === highlight ? (
+              <span key={i} className="text-orange-500">
+                {part}
+              </span>
+            ) : (
+              part
+            ),
+          )}
+        </span>
+      );
+    };
 
     return (
       <>
         <ul className="menu bg-base-100 rounded-box">
-          {matchTextList.map(item => {
-            const complateListRegex =
-              regexValue && item.name.match(regexValue.source);
-            const activeText = complateListRegex && complateListRegex[0];
+          {matchWordList.map((item, i) => {
             return (
-              <li key={item.id}>
+              <li key={i}>
                 <a className={addmealCss.nogap}>
                   <input
                     type="checkbox"
@@ -74,8 +90,7 @@ const AddMeal = () => {
                     }}
                     checked={selectedFood.includes(item.name) ? true : false}
                   />
-                  <span className="text-orange-500">{activeText}</span>
-                  {activeText && item.name.replace(activeText, '')}
+                  {getHighlightedText(item.name, searchInputValue)}
                 </a>
               </li>
             );
@@ -135,7 +150,7 @@ const AddMeal = () => {
             onChange={handleInputValue}
           />
         </div>
-        <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
+        <div className="mt-4">{searchInputValue && <AutoCompleteBox />}</div>
         {selectedFood.length !== 0 && (
           <Link
             to={'/SelectedMeal'}

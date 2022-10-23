@@ -28,7 +28,7 @@ const Navbar = () => {
           break;
       }
     } else {
-      setTitle('음식 기록장');
+      setTitle('마이칼로리');
     }
   });
 
