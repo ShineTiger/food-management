@@ -55,15 +55,31 @@ const AddMeal = () => {
       text.name.match(regexValue!),
     );
 
+    const getHighlightedText = (text: string, highlight: string) => {
+      const parts: string[] | undefined = text.split(
+        new RegExp(`(${highlight})`),
+      );
+      return (
+        <span>
+          {parts.map((part, i) =>
+            part === highlight ? (
+              <span key={i} className="text-orange-500">
+                {part}
+              </span>
+            ) : (
+              part
+            ),
+          )}
+        </span>
+      );
+    };
+
     return (
       <>
         <ul className="menu bg-base-100 rounded-box">
-          {matchWordList.map(item => {
-            const complateListRegex =
-              regexValue && item.name.match(regexValue.source);
-            const activeText = complateListRegex && complateListRegex[0];
+          {matchWordList.map((item, i) => {
             return (
-              <li key={item._id}>
+              <li key={i}>
                 <a className={addmealCss.nogap}>
                   <input
                     type="checkbox"
@@ -74,8 +90,7 @@ const AddMeal = () => {
                     }}
                     checked={selectedFood.includes(item.name) ? true : false}
                   />
-                  <span className="text-orange-500">{activeText}</span>
-                  {activeText && item.name.replace(activeText, '')}
+                  {getHighlightedText(item.name, searchInputValue)}
                 </a>
               </li>
             );
