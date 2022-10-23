@@ -50,20 +50,20 @@ const AddMeal = () => {
     axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
 
-  const CompleteBox = () => {
-    const matchTextList = foodNameList.filter(
-      text => regexValue && text.name.match(regexValue.source),
+  const AutoCompleteBox = () => {
+    const matchWordList = foodNameList.filter(text =>
+      text.name.match(regexValue!),
     );
 
     return (
       <>
         <ul className="menu bg-base-100 rounded-box">
-          {matchTextList.map(item => {
+          {matchWordList.map(item => {
             const complateListRegex =
               regexValue && item.name.match(regexValue.source);
             const activeText = complateListRegex && complateListRegex[0];
             return (
-              <li key={item.id}>
+              <li key={item._id}>
                 <a className={addmealCss.nogap}>
                   <input
                     type="checkbox"
@@ -135,7 +135,7 @@ const AddMeal = () => {
             onChange={handleInputValue}
           />
         </div>
-        <div className="mt-4">{searchInputValue && <CompleteBox />}</div>
+        <div className="mt-4">{searchInputValue && <AutoCompleteBox />}</div>
         {selectedFood.length !== 0 && (
           <Link
             to={'/SelectedMeal'}
