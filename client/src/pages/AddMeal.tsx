@@ -48,12 +48,6 @@ const AddMeal = () => {
     axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
 
-  // 페이지 입장시 최초 1회 음식 이름 리스트 로드
-  useEffect(() => {
-    dispatch(asyncUpFetch());
-    console.log(foodNameData);
-  }, []);
-
   const AutoCompleteBox = () => {
     const matchWordList = foodNameData.filter(food =>
       food.name.match(regexValue!),
@@ -81,28 +75,36 @@ const AddMeal = () => {
     return (
       <>
         <ul className="menu bg-base-100 rounded-box">
-          {matchWordList.map((item, i) => {
-            return (
-              <li key={i}>
-                <a className={addmealCss.nogap}>
-                  <input
-                    type="checkbox"
-                    className="checkbox mr-3"
-                    value={item.name}
-                    onChange={e => {
-                      onChecked(e.target.checked, e.target.value);
-                    }}
-                    checked={selectedFood.includes(item.name) ? true : false}
-                  />
-                  {getHighlightedText(item.name, searchInputValue)}
-                </a>
-              </li>
-            );
-          })}
+          {matchWordList
+            .map((item, i) => {
+              return (
+                <li key={i}>
+                  <a className={addmealCss.nogap}>
+                    <input
+                      type="checkbox"
+                      className="checkbox mr-3"
+                      value={item.name}
+                      onChange={e => {
+                        onChecked(e.target.checked, e.target.value);
+                      }}
+                      checked={selectedFood.includes(item.name) ? true : false}
+                    />
+                    {getHighlightedText(item.name, searchInputValue)}
+                  </a>
+                </li>
+              );
+            })
+            .splice(0, 10)}
         </ul>
       </>
     );
   };
+
+  // 페이지 입장시 최초 1회 음식 이름 리스트 로드
+  useEffect(() => {
+    dispatch(asyncUpFetch());
+    console.log(foodNameData);
+  }, []);
 
   return (
     <div className="flex flex-col w-full">
