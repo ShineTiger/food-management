@@ -2,27 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { getRegExp } from 'korean-regexp';
 import addmealCss from './AddMeal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { setFoodNames } from '../redux/slice/foodNameSlice';
+import { AppDispatch, RootState } from '../redux/store';
+import { asyncUpFetch, setFoodNames } from '../redux/slice/foodNameSlice';
 import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { Link } from 'react-router-dom';
 import axios, { Axios } from 'axios';
 
 const AddMeal = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const selectedFood: string[] = useSelector(
     (store: RootState) => store.selectedFoods.checkedInput,
   );
 
+  const foodNameData: FoodNameType[] = useSelector((store: RootState) => {
+    return store.foodNames.value;
+  });
+
   const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
   const [regexValue, setRegexValue] = useState<RegExp>(); //검색창에 들어가는 값을 정규식으로 변환해서 들어가는 값(라이브러리 이용할때 씀)
-  const [foodNameList, setFoodNameList] = useState<FoodNameType[]>([]);
-
-  const fetchData = async () => {
-    const foodData = (await axios.get('/api/foodName')).data.message;
-    setFoodNameList(foodData);
-  };
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const getKorean: RegExp = getRegExp(e.target.value, {});
@@ -50,9 +48,15 @@ const AddMeal = () => {
     axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
 
+  // 페이지 입장시 최초 1회 음식 이름 리스트 로드
+  useEffect(() => {
+    dispatch(asyncUpFetch());
+    console.log(foodNameData);
+  }, []);
+
   const AutoCompleteBox = () => {
-    const matchWordList = foodNameList.filter(text =>
-      text.name.match(regexValue!),
+    const matchWordList = foodNameData.filter(food =>
+      food.name.match(regexValue!),
     );
 
     const getHighlightedText = (text: string, highlight: string) => {
@@ -99,11 +103,6 @@ const AddMeal = () => {
       </>
     );
   };
-
-  // 페이지 입장시 최초 1회 음식 이름 리스트 로드
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div className="flex flex-col w-full">
