@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import appModuleCss from './App.module.css';
-import AddMeal from './pages/AddMeal';
+import SearchFoods from './pages/SearchFoods';
 import Main from './pages/Main';
 import Join from './pages/Join';
 import Login from './pages/Login';
 import RequireAuth from './components/RequireAuth';
-import SelectedMeal from './pages/SelectedMeal';
+import Total from './pages/Total';
 
 //components
 import Navbar from './components/Main/Navbar';
@@ -23,8 +23,8 @@ function App() {
 
             <Route element={<RequireAuth />}>
               <Route path="/" element={<Main />} />
-              <Route path="/AddMeal" element={<AddMeal />} />
-              <Route path="/SelectedMeal" element={<SelectedMeal />} />
+              <Route path="/SearchFoods" element={<SearchFoods />} />
+              <Route path="/Total" element={<Total />} />
               <Route path="/Mypage" element={<MyPage />} />
             </Route>
           </Routes>

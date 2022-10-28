@@ -12,7 +12,7 @@ const MainModal = () => {
   const navigate = useNavigate();
 
   const handleSelect = (queryName: string) => {
-    setTimeout(() => navigate(`/Addmeal?type=${queryName}`), 200);
+    setTimeout(() => navigate(`/SearchFoods?type=${queryName}`), 200);
     axios.post('/api/testSuccess', queryName);
   };
 

@@ -13,7 +13,7 @@ const SelectedMeal = () => {
 
   const submitSeletedFood = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    axios.post('api/testSuccess', { method: 'POST', body: new FormData() }); //promiseall 사용하기
+    axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
 
   const onRemoved = (e: string) => {
@@ -23,7 +23,6 @@ const SelectedMeal = () => {
   const totalCalorie = selectedFood
     .map(el => el.kiloCalories)
     .reduce((prev, current, i) => {
-      console.log(prev, current, i);
       return Math.round(prev + Number(current));
     }, 0);
 

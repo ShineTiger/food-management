@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRegExp } from 'korean-regexp';
-import addmealCss from './AddMeal.module.css';
+import addmealCss from './SearchFoods.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
 import { asyncUpFetch } from '../redux/slice/nameCalorieSlice';
@@ -8,7 +8,7 @@ import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { Link } from 'react-router-dom';
 import axios, { Axios } from 'axios';
 
-const AddMeal = () => {
+const SearchFoods = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const selectedFood: nameCalorieData[] = useSelector(
@@ -107,7 +107,11 @@ const AddMeal = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <form className="mt-4" onSubmit={e => submitSeletedFood} id="AddMeal">
+      <form
+        className="mt-4"
+        onSubmit={e => submitSeletedFood}
+        id="selectedFoods"
+      >
         <div className="form-control">
           {selectedFood.length !== 0 && (
             <p>{selectedFood.length}개 선택했습니다</p>
@@ -165,4 +169,4 @@ const AddMeal = () => {
   );
 };
 
-export default AddMeal;
+export default SearchFoods;
