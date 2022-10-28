@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { RootState } from '../redux/store';
@@ -6,55 +5,37 @@ import { Link } from 'react-router-dom';
 import axios, { Axios } from 'axios';
 
 const SelectedMeal = () => {
-  const [foodCalorieArr, setFoodCalorieArr] = useState<number[]>([]);
-  const [totalFoodCalorie, setTotalFoodCalorie] = useState<number>();
-
   const dispatch = useDispatch();
 
-  const selectedFood: string[] = useSelector(
-    (store: RootState) => store.selectedFoods.checkedInput,
+  const selectedFood: nameCalorieData[] = useSelector(
+    (store: RootState) => store.selectedFoods.value,
   );
-
-  const fetchCalorieData = async () => {
-    const calorieData: number[] = (
-      await axios.post('/api/foodCalorie', { selectedFood })
-    ).data.message;
-    setFoodCalorieArr(calorieData);
-    setTotalFoodCalorie(calorieData.reduce((prev, current) => prev + current));
-  };
 
   const submitSeletedFood = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
+    axios.post('api/testSuccess', { method: 'POST', body: new FormData() }); //promiseall 사용하기
   };
 
-  const onRemoved = (name: string) => {
-    dispatch(setSelectedFood(selectedFood.filter(el => el !== name)));
-    const removeIndex = selectedFood.indexOf(
-      selectedFood.filter(el => el === name).toString(),
-    );
-
-    //undefined의 경우일때 TS에러를 일으키므로 if문으로 감싼다.
-    if (totalFoodCalorie) {
-      setTotalFoodCalorie(totalFoodCalorie - foodCalorieArr[removeIndex]);
-    }
-    setFoodCalorieArr(foodCalorieArr.splice(removeIndex, 1));
+  const onRemoved = (e: string) => {
+    dispatch(setSelectedFood(selectedFood.filter(el => el.name !== e)));
   };
+
+  const totalCalorie = selectedFood
+    .map(el => el.kiloCalories)
+    .reduce((prev, current, i) => {
+      console.log(prev, current, i);
+      return Math.round(prev + Number(current));
+    }, 0);
 
   const onReset = () => {
     dispatch(setSelectedFood([]));
   };
 
-  // 페이지 입장시 칼로리 요청
-  useEffect(() => {
-    fetchCalorieData();
-  }, []);
-
   return (
     <>
       <div className="text-center my-6">
         <p className="text-xl	">총칼로리</p>
-        <p className="text-3xl	">{totalFoodCalorie}</p>
+        <p className="text-3xl">{totalCalorie}</p>
       </div>
       <form
         onSubmit={e => {
@@ -64,18 +45,18 @@ const SelectedMeal = () => {
       >
         <div className="form-control">
           <ul className="bg-base-100 rounded-box">
-            {selectedFood.map((name, index) => {
+            {selectedFood.map((item, index) => {
               return (
                 <li
                   className="flex items-center justify-between p-3 border-b border-solid  border-slate-800"
                   key={index}
                 >
-                  <span>{name}</span>
+                  <span>{item.name}</span>
                   <button
                     type="button"
                     className="btn-sm"
                     onClick={() => {
-                      onRemoved(name);
+                      onRemoved(item.name);
                     }}
                   >
                     <svg

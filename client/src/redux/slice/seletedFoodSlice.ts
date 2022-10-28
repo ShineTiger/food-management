@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const selectedFoodsSlice = createSlice({
   name: 'selectedFoods',
   initialState: {
-    checkedInput: [],
+    value: [],
   },
   reducers: {
-    setSelectedFood(state, { payload }) {
-      state.checkedInput = payload;
+    setSelectedFood: (state, action) => {
+      state.value = action.payload;
     },
   },
 });
