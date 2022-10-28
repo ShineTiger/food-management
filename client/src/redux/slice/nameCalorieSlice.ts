@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const asyncUpFetch = createAsyncThunk(
-  'foodNameSlice/asyncUpFetch',
+  'nameCalorieSlice/asyncUpFetch',
   async () => {
     const res = (await axios.post('/api/getFoodsAll')).data.message;
     const nameCalorieData = await res.map((el: Food) => {
@@ -16,14 +16,14 @@ const asyncUpFetch = createAsyncThunk(
   },
 );
 
-const foodNameSlice = createSlice({
-  name: 'foodNames',
+const nameCalorieSlice = createSlice({
+  name: 'nameCalorieData',
   initialState: {
     value: [],
     status: 'Welcome',
   },
   reducers: {
-    setFoodNames(state, action) {
+    setNameCalorieData(state, action) {
       state.value = action.payload;
     },
   },
@@ -41,6 +41,6 @@ const foodNameSlice = createSlice({
   },
 });
 
-export const { setFoodNames } = foodNameSlice.actions;
+export const { setNameCalorieData } = nameCalorieSlice.actions;
 export { asyncUpFetch };
-export default foodNameSlice.reducer;
+export default nameCalorieSlice.reducer;
