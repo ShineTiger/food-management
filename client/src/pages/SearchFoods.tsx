@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { getRegExp } from 'korean-regexp';
-import addmealCss from './AddMeal.module.css';
+import addmealCss from './SearchFoods.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
-import { asyncUpFetch, setFoodNames } from '../redux/slice/foodNameSlice';
+import { asyncUpFetch } from '../redux/slice/nameCalorieSlice';
 import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { Link } from 'react-router-dom';
 import axios, { Axios } from 'axios';
 
-const AddMeal = () => {
+const SearchFoods = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const selectedFood: string[] = useSelector(
-    (store: RootState) => store.selectedFoods.checkedInput,
+  const selectedFood: nameCalorieData[] = useSelector(
+    (store: RootState) => store.selectedFoods.value,
   );
 
-  const foodNameData: FoodNameType[] = useSelector((store: RootState) => {
-    return store.foodNames.value;
+  const foodNameData: nameCalorieData[] = useSelector((store: RootState) => {
+    return store.nameCalorieData.value;
   });
 
   const [searchInputValue, setsearchInputValue] = useState<string>(''); //검색창에 들어가는 값
@@ -28,18 +28,17 @@ const AddMeal = () => {
     setsearchInputValue(e.target.value);
   };
 
-  const onChecked = (selected: boolean, name: string) => {
+  const onChecked = (selected: boolean, item: nameCalorieData, e: string) => {
     if (selected) {
-      dispatch(setSelectedFood([...selectedFood, name]));
+      dispatch(setSelectedFood([...selectedFood, item]));
     } else if (!selected) {
       //name과 같지 않은것만 반환함 -> name과 같은건 selectedItem에서 삭제한다
-
-      dispatch(setSelectedFood(selectedFood.filter(el => el !== name)));
+      dispatch(setSelectedFood(selectedFood.filter(el => el.name !== e)));
     }
   };
 
-  const onRemoved = (name: string) => {
-    dispatch(setSelectedFood(selectedFood.filter(el => el !== name)));
+  const onRemoved = (e: string) => {
+    dispatch(setSelectedFood(selectedFood.filter(el => el.name !== e)));
   };
 
   const submitSeletedFood = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,9 +84,9 @@ const AddMeal = () => {
                       className="checkbox mr-3"
                       value={item.name}
                       onChange={e => {
-                        onChecked(e.target.checked, e.target.value);
+                        onChecked(e.target.checked, item, e.target.value);
                       }}
-                      checked={selectedFood.includes(item.name) ? true : false}
+                      checked={selectedFood.includes(item) ? true : false}
                     />
                     {getHighlightedText(item.name, searchInputValue)}
                   </a>
@@ -108,22 +107,26 @@ const AddMeal = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <form className="mt-4" onSubmit={e => submitSeletedFood} id="AddMeal">
+      <form
+        className="mt-4"
+        onSubmit={e => submitSeletedFood}
+        id="selectedFoods"
+      >
         <div className="form-control">
           {selectedFood.length !== 0 && (
             <p>{selectedFood.length}개 선택했습니다</p>
           )}
           <div className="badge-list py-4">
             {selectedFood.length !== 0 &&
-              selectedFood.map((name, index) => {
+              selectedFood.map((el, index) => {
                 return (
                   <span className="badge mr-1.5" key={index}>
-                    {name}
+                    {el.name}
                     <button
                       type="button"
-                      value={name}
-                      onClick={() => {
-                        onRemoved(name);
+                      value={el.name}
+                      onClick={e => {
+                        onRemoved(el.name);
                       }}
                     >
                       <svg
@@ -166,4 +169,4 @@ const AddMeal = () => {
   );
 };
 
-export default AddMeal;
+export default SearchFoods;

@@ -1,19 +1,16 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import dateSlice from './slice/dateSlice';
-import foodNameSlice from './slice/foodNameSlice';
+import nameCalorieSlice from './slice/nameCalorieSlice';
 import loginUserSlice from './slice/loginUserSlice';
 import selectedFoodsSlice from './slice/seletedFoodSlice';
 // ...
 const store = configureStore({
   reducer: {
-    foodNames: foodNameSlice,
+    nameCalorieData: nameCalorieSlice,
     dateInfo: dateSlice,
     selectedFoods: selectedFoodsSlice,
     loginUserInfo: loginUserSlice,
   },
-  middleware: getDefaultMiddleware({
-    serializableCheck: false,
-  }),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

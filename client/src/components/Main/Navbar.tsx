@@ -9,7 +9,7 @@ const Navbar = () => {
   const type = searchParams.get('type');
 
   useEffect(() => {
-    if (window.location.pathname === '/Addmeal') {
+    if (window.location.pathname === '/SearchFoods') {
       switch (type) {
         case 'breakfast':
           setTitle('아침');
