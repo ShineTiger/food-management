@@ -5,10 +5,14 @@ const asyncUpFetch = createAsyncThunk(
   'foodNameSlice/asyncUpFetch',
   async () => {
     const res = (await axios.post('/api/getFoodsAll')).data.message;
-    const foodNameData = await res.map((el: Food) => {
-      return el.name;
+    const nameCalorieData = await res.map((el: Food) => {
+      const nameCalorie = {
+        name: el.name,
+        kiloCalories: el.kiloCalories,
+      };
+      return nameCalorie;
     });
-    return foodNameData;
+    return nameCalorieData;
   },
 );
 
@@ -19,8 +23,8 @@ const foodNameSlice = createSlice({
     status: 'Welcome',
   },
   reducers: {
-    setFoodNames(state, { payload }) {
-      state.value = payload;
+    setFoodNames(state, action) {
+      state.value = action.payload;
     },
   },
   extraReducers: builder => {
