@@ -19,7 +19,7 @@ const Login = () => {
     watch,
   } = useForm<LoginFormType>();
 
-  const IdPwRegex = /^[a-zA-Z0-9]+$/;
+  const mailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
   const navigate = useNavigate();
   const onVaild: SubmitHandler<LoginFormType> = userdata => {
     //로그인 폼 전달
@@ -49,21 +49,13 @@ const Login = () => {
         <h2 className="text-2xl py-3 leading-10 font-medium">로그인</h2>
         <input
           {...register('id', {
-            required: '아이디를 입력해 주세요',
-            minLength: {
-              value: 4,
-              message: '4자 이상 입력해 주세요',
-            },
-            maxLength: {
-              value: 15,
-              message: '15자 이하 입력해 주세요',
-            },
+            required: '이메일을 입력해 주세요',
             pattern: {
-              value: IdPwRegex,
-              message: '아이디는 알파벳과 숫자로만 입력할 수 있습니다',
+              value: mailRegex,
+              message: '이메일 양식이 올바르지 않습니다',
             },
           })}
-          placeholder="아이디"
+          placeholder="이메일"
           className="input input-bordered w-full"
         />
 
@@ -77,18 +69,6 @@ const Login = () => {
           type="password"
           {...register('pw', {
             required: '비밀번호를 입력해 주세요',
-            minLength: {
-              value: 4,
-              message: '4자 이상 입력해 주세요',
-            },
-            maxLength: {
-              value: 15,
-              message: '15자 이하 입력해 주세요',
-            },
-            pattern: {
-              value: IdPwRegex,
-              message: '비밀번호는 알파벳과 숫자로만 입력할 수 있습니다',
-            },
           })}
           placeholder="비밀번호"
           className="input input-bordered w-full"
