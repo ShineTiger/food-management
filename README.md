@@ -3,7 +3,7 @@
 <p align="middle">음식-칼로리 검색, 기록, 열람 기능이 있어 식단관리를 시도할 수 있는 앱을 소개합니다.  
  </p>
 
-<p align="middle"><img src="https://img.shields.io/badge/version-0.8.0-yellow"></p>
+<p align="middle"><img src="https://img.shields.io/badge/version-0.8.4-yellow"></p>
 
 ![github 레이아웃1](https://user-images.githubusercontent.com/94972549/195353656-5d07350b-f080-4bdf-b783-c1ce9ac9c083.png)
 
@@ -52,6 +52,11 @@
 
 #### 10.12 - 0.8.0v 주요기능 더미데이터로 구현 완료
 
+#### 10.30 - 0.8.4v 업데이트
+- 전체 음식 데이터 api를 이용한 검색 가능
+- 자동 완성 색상 강조, 칼로리 총합 버그 해결
+- 미 구현 기능 공지 알림 추가
+
 ## 📌기술스택
 
 ### Frontend
@@ -66,6 +71,6 @@
 
 | 아이디(깃헙링크) | Position |
 | --- | --- |
-| [ShineTiger](https://github.com/ShineTiger) | 💻 Front-end, 🌟 Team leader |
-| [hamsoter](https://github.com/hamsoter) | 💻 Front-end |
+| [ShineTiger](https://github.com/ShineTiger) | 💻 Front-end(Input), 🌟 Team leader |
+| [hamsoter](https://github.com/hamsoter) | 💻 Front-end(View) |
 | [Revi-Universe](https://github.com/Revi-Universe) | 💻 Back-end |
