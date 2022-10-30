@@ -9,22 +9,22 @@ const db = require("./middleware/database");
 const port = process.env.SERVER_PORT;
 const app = express();
 
-
 app.use(cors());
 app.use("/api", bodyParser.urlencoded({ extended: true }));
 app.use("/api", bodyParser.json());
 
-app.post("/api/getFoodNamesAll", async function (req, res) {
-  const result = (await db.foodData.find().toArray()).map((i) => i.식품명);
-  console.log(result);
-  res.send(result);
-});
+// test api
+// app.post("/api/getFoodNamesAll", async function (req, res) {
+//   const result = (await db.foodData.find().toArray()).map((i) => i.식품명);
+//   console.log(result);
+//   res.send(result);
+// });
 
 app.post("/api/getFoodsAll", async function (req, res) {
-  const result = (await db.foodData.find().toArray()).map(i => keyChange(i));
+  const result = (await db.foodData.find().toArray()).map((i) => keyChange(i));
   res.send({
     status: "success",
-    message: result
+    message: result,
   });
 });
 
@@ -58,6 +58,14 @@ app.post("/api/foodCalorie", async function (req, res) {
 
 app.post("/api/test", async function (req, res) {
   const success = Math.random() < 0.5;
+  res.send({
+    status: success ? "success" : "fail",
+    message: success ? "" : "Unknown Error",
+  });
+});
+
+app.post("/api/joinSuccess", async function (req, res) {
+  const success = 1;
   res.send({
     status: success ? "success" : "fail",
     message: success ? "" : "Unknown Error",

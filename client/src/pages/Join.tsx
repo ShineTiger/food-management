@@ -46,6 +46,7 @@ const Join = () => {
       .catch(error => {
         alert(`${error} '원인을 알 수 없는 오류가 발생했습니다.'`);
       });
+    alert('회원가입 기능은 구현중 입니다. DB 저장이 원활하지 않을 수 있습니다');
   };
 
   return (

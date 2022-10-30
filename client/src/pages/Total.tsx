@@ -27,6 +27,7 @@ const Total = () => {
     }, 0);
 
   const onReset = () => {
+    alert('저장 후 메인에 불러오는 기능은 미구현 상태입니다'); //구현이 완료시 삭제될 코드
     dispatch(setSelectedFood([]));
   };
 

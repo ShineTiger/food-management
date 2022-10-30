@@ -39,7 +39,7 @@ const MyPage = () => {
 
           <div className="mx-5 flex flex-col justify-center">
             <h3>{reduxUserData.name}</h3>
-            <span className="text-xs">{reduxUserData.id}</span>
+            {/* <span className="text-xs">{reduxUserData.id}</span> */}
           </div>
         </div>
         <Menu />
