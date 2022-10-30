@@ -4,7 +4,7 @@ import { RootState } from '../redux/store';
 import { Link } from 'react-router-dom';
 import axios, { Axios } from 'axios';
 
-const SelectedMeal = () => {
+const Total = () => {
   const dispatch = useDispatch();
 
   const selectedFood: nameCalorieData[] = useSelector(
@@ -27,6 +27,7 @@ const SelectedMeal = () => {
     }, 0);
 
   const onReset = () => {
+    alert('저장 후 메인에 불러오는 기능은 미구현 상태입니다'); //구현이 완료시 삭제될 코드
     dispatch(setSelectedFood([]));
   };
 
@@ -50,7 +51,13 @@ const SelectedMeal = () => {
                   className="flex items-center justify-between p-3 border-b border-solid  border-slate-800"
                   key={index}
                 >
-                  <span>{item.name}</span>
+                  <p>
+                    {item.name}
+                    <span className="ml-2 text-sm	">
+                      {Math.round(item.kiloCalories)} kcal
+                    </span>
+                  </p>
+
                   <button
                     type="button"
                     className="btn-sm"
@@ -97,4 +104,4 @@ const SelectedMeal = () => {
   );
 };
 
-export default SelectedMeal;
+export default Total;

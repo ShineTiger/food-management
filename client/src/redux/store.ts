@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import dateSlice from './slice/dateSlice';
 import nameCalorieSlice from './slice/nameCalorieSlice';
 import loginUserSlice from './slice/loginUserSlice';
@@ -11,6 +11,9 @@ const store = configureStore({
     selectedFoods: selectedFoodsSlice,
     loginUserInfo: loginUserSlice,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

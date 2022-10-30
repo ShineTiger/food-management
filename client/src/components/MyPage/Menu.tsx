@@ -18,7 +18,13 @@ const Menu = () => {
 
       <li className="text-error text-center">
         회원탈퇴 문의는
-        <br /> shinetiger.dev@gmail.com 으로 부탁드립니다
+        <a
+          href="mailto:shinetiger.dev@gmail.com"
+          className="justify-center underline "
+        >
+          shinetiger.dev@gmail.com
+        </a>
+        으로 부탁드립니다
       </li>
     </ul>
   );
