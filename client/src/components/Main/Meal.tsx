@@ -31,15 +31,15 @@ const Meal = () => {
 
   // 최초 1회, currentDate의 식사 목록을 받아오는 api 요청
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await apiTest(
-        `http://testDomain.io/testing/${dummyCurrentDateString}`,
-        { date: dummyCurrentDateString },
-        dummyMeals,
-      );
-      setDaysMeal(response.data);
-    };
-    fetchData();
+    // const fetchData = async () => {
+    //   const response = await apiTest(
+    //     `http://testDomain.io/testing/${dummyCurrentDateString}`,
+    //     { date: dummyCurrentDateString },
+    //     dummyMeals,
+    //   );
+    //   setDaysMeal(response.data);
+    // };
+    // fetchData();
   }, [dummyCurrentDateString]);
 
   return (

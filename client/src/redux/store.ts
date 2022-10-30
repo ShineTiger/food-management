@@ -1,12 +1,12 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import dateSlice from './slice/dateSlice';
-import foodNameSlice from './slice/foodNameSlice';
+import nameCalorieSlice from './slice/nameCalorieSlice';
 import loginUserSlice from './slice/loginUserSlice';
 import selectedFoodsSlice from './slice/seletedFoodSlice';
 // ...
 const store = configureStore({
   reducer: {
-    foodNames: foodNameSlice,
+    nameCalorieData: nameCalorieSlice,
     dateInfo: dateSlice,
     selectedFoods: selectedFoodsSlice,
     loginUserInfo: loginUserSlice,
