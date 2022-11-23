@@ -4,9 +4,10 @@ const db = require("../middleware/database");
 const { createToken, verifyToken } = require("../middleware/auth");
 const { encrypt } = require("../middleware/crypt");
 
-const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+const pwRegex =
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 const mailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-const nickReg = /^[ㄱ-ㅎ가-힣]$/;
+const nickReg = /^[ㄱ-ㅎ가-힣]+$/;
 
 // 오늘 식단 저장
 router.post("/saveTodayMeal", async (req, res) => {
@@ -21,7 +22,7 @@ router.post("/saveTodayMeal", async (req, res) => {
     await db.userMeal.insertOne({
       date: dateString,
       type: type,
-      meal: meal
+      meal: meal,
     });
     successMessage = "success";
   }
@@ -38,12 +39,17 @@ router.post("/login", async (req, res) => {
   let failReason = "";
   let successMessage = "";
 
-  if (!mailRegex.test(userId) || !pwRegex.test(password)) { // 형식 검사
+  if (!mailRegex.test(userId) || !pwRegex.test(password)) {
+    // 형식 검사
     failReason = "Invalid input";
   } else {
     // 입력값을 DB에서 검색
-    const userDoc = await db.userData.findOne({ userId, password: encrypt(password) }, {_id: 1});
-    if (userDoc) { // 결과가 있으면 토큰 발급
+    const userDoc = await db.userData.findOne(
+      { userId, password: encrypt(password) },
+      { _id: 1 }
+    );
+    if (userDoc) {
+      // 결과가 있으면 토큰 발급
       successMessage = createToken(userDoc._id);
     } else {
       failReason = "Wrong input";
@@ -62,21 +68,32 @@ router.post("/join", async (req, res) => {
   let successMessage = "";
 
   const { userId, password, nickname } = req.body;
-  
-  if (mailRegex.test(userId) && pwRegex.test(password) && nickReg.test(nickname)) { // 형식 검사
+
+  if (
+    mailRegex.test(userId) &&
+    pwRegex.test(password) &&
+    nickReg.test(nickname)
+  ) {
+    // 형식 검사
     // 이미 가입된 아이디가 있는지 검색
-    const isExists = await db.userData.countDocuments({ userId, password: encrypt(password) });
-    if (isExists > 0) { // 검색된 아이디가 있으면 실패
+    const isExists = await db.userData.countDocuments({
+      userId,
+      password: encrypt(password),
+    });
+    if (isExists > 0) {
+      // 검색된 아이디가 있으면 실패
       failReason = "Already joined";
-    } else { // 없으면 DB에 저장, 비밀번호는 암호화해서 저장한다
+    } else {
+      // 없으면 DB에 저장, 비밀번호는 암호화해서 저장한다
       await db.userData.insertOne({
         userId: userId,
         password: encrypt(password),
-        nickname: nickname
+        nickname: nickname,
       });
       successMessage = "success";
     }
-  } else { // 유효성 검사 실패
+  } else {
+    // 유효성 검사 실패
     failReason = "Invalid input";
   }
 

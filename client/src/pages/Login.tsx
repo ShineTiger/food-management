@@ -6,8 +6,8 @@ import { setLoginUser } from '../redux/slice/loginUserSlice';
 import Join from './Join';
 
 interface LoginFormType {
-  id: string;
-  pw: string;
+  userId: string;
+  password: string;
 }
 const Login = () => {
   const dispatch = useDispatch();
@@ -24,13 +24,14 @@ const Login = () => {
   const onVaild: SubmitHandler<LoginFormType> = userdata => {
     //로그인 폼 전달
     axios
-      .post('/api/testSuccess', { userdata })
+      .post('api/login', userdata)
       .then(response => {
-        console.log(userdata.id);
         // 로그인 성공시
         if (response.data.status === 'success') {
           localStorage.setItem('token', response.data.message);
-          dispatch(setLoginUser({ id: userdata.id, name: userdata.id }));
+          dispatch(
+            setLoginUser({ id: userdata.userId, name: userdata.userId }),
+          );
           navigate('/', { replace: true });
         } else if (response.data.status === 'fail') {
           alert(response.data.message);
@@ -48,7 +49,7 @@ const Login = () => {
       <form onSubmit={handleSubmit(onVaild)}>
         <h2 className="text-2xl py-3 leading-10 font-medium">로그인</h2>
         <input
-          {...register('id', {
+          {...register('userId', {
             required: '이메일을 입력해 주세요',
             pattern: {
               value: mailRegex,
@@ -61,13 +62,13 @@ const Login = () => {
 
         <label className="label">
           <span className="label-text-alt text-red-600">
-            {errors.id && errors.id.message && errors.id.message}
+            {errors.userId && errors.userId.message && errors.userId.message}
           </span>
         </label>
 
         <input
           type="password"
-          {...register('pw', {
+          {...register('password', {
             required: '비밀번호를 입력해 주세요',
           })}
           placeholder="비밀번호"
@@ -76,7 +77,9 @@ const Login = () => {
 
         <label className="label">
           <span className="label-text-alt text-red-600">
-            {errors.pw && errors.pw.message && errors.pw.message}
+            {errors.password &&
+              errors.password.message &&
+              errors.password.message}
           </span>
         </label>
         <Link to={'../Join'} className="link">
