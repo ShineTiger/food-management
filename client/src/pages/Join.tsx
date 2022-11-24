@@ -23,7 +23,7 @@ const Join = () => {
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 
   const mailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-  const nickRegex = /^[ㄱ-ㅎ가-힣]+$/;
+  const nickRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
   const navigate = useNavigate();
 
   const onValid: SubmitHandler<JoinFormType> = userdata => {
@@ -122,17 +122,11 @@ const Join = () => {
         <input
           {...register('nickname', {
             required: '닉네임을 입력해 주세요',
-            minLength: {
-              value: 1,
-              message: '1자 이상 입력해 주세요',
-            },
-            maxLength: {
-              value: 15,
-              message: '15자 이하 입력해 주세요',
-            },
+
             pattern: {
               value: nickRegex,
-              message: '닉네임은 한글로만 만들 수 있습니다',
+              message:
+                '닉네임은 2글자 이상 16자 이내, 초성을 제외한 한글, 영어, 숫자만 입력할 수 있습니다',
             },
           })}
           placeholder="닉네임"

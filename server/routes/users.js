@@ -7,7 +7,7 @@ const { encrypt } = require("../middleware/crypt");
 const pwRegex =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 const mailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-const nickReg = /^[ㄱ-ㅎ가-힣]+$/;
+const nickReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
 // 오늘 식단 저장
 router.post("/saveTodayMeal", async (req, res) => {
