@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const crypto = require('crypto');
 const db = require("../middleware/database");
+
 const { createToken, verifyToken } = require("../middleware/auth");
 const { encrypt } = require("../middleware/crypt");
 
@@ -32,6 +34,7 @@ router.post("/saveTodayMeal", async (req, res) => {
     message: failReason == "" ? successMessage : failReason,
   });
 });
+
 
 // 로그인
 router.post("/login", async (req, res) => {
@@ -104,3 +107,4 @@ router.post("/join", async (req, res) => {
 });
 
 module.exports = router;
+
