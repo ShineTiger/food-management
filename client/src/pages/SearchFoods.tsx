@@ -6,7 +6,8 @@ import { AppDispatch, RootState } from '../redux/store';
 import { asyncUpFetch } from '../redux/slice/nameCalorieSlice';
 import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { Link } from 'react-router-dom';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
+import { searchSort } from '../utils/common';
 
 const SearchFoods = () => {
   const dispatch = useDispatch<AppDispatch>();
