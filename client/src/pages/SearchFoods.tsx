@@ -53,25 +53,9 @@ const SearchFoods = () => {
     });
 
     const matchWordList = filteredFoods
+      // 검색어 우선순위 정렬
       .sort((a, b) => {
-        // 검색어를 우선시하여, 음식배열을 정렬함
-        const aFirstWord = a.name.slice(0, searchInputValue.length);
-        const bFirstWord = b.name.slice(0, searchInputValue.length);
-
-        // 음식의 첫번째 단어가 서치어일 때 우선 정렬
-        if (
-          aFirstWord === searchInputValue ||
-          bFirstWord === searchInputValue
-        ) {
-          return a.name.length - b.name.length;
-        }
-        // 서치어를 우선시하여 일반 정렬
-        else {
-          return (
-            b.name.localeCompare(searchInputValue, 'ko') -
-            a.name.localeCompare(searchInputValue, 'ko')
-          );
-        }
+        return searchSort(a.name, b.name, searchInputValue);
       })
       .splice(0, 10); // 배열 자르기
 

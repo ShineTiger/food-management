@@ -13,3 +13,19 @@ export const apiTest: any = (dummyUrl: string, input?: any, output?: any) => {
     resolve(response);
   });
 };
+
+// (특정 문자열을 기준으로 리스트를 정렬)
+export const searchSort = (a: string, b: string, text: string): number => {
+  // 검색어를 우선시하여, 음식배열을 정렬함
+  const aFirstWord = a.slice(0, text.length);
+  const bFirstWord = b.slice(0, text.length);
+
+  // 음식의 첫번째 단어가 서치어일 때 우선 정렬
+  if (aFirstWord === text || bFirstWord === text) {
+    return a.length - b.length;
+  }
+  // 서치어를 우선시하여 일반 정렬
+  else {
+    return b.localeCompare(text, 'ko') - a.localeCompare(text, 'ko');
+  }
+};
