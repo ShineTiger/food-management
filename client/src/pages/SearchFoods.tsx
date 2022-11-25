@@ -46,11 +46,34 @@ const SearchFoods = () => {
 
     axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
-
   const AutoCompleteBox = () => {
-    const matchWordList = foodNameData
-      .filter(food => food.name.match(regexValue!))
-      .splice(0, 10);
+    // 정규식으로 한번 필터된 음식배열
+    const filteredFoods = foodNameData.filter(food => {
+      return food.name.match(regexValue!);
+    });
+
+    const matchWordList = filteredFoods
+      .sort((a, b) => {
+        // 검색어를 우선시하여, 음식배열을 정렬함
+        const aFirstWord = a.name.slice(0, searchInputValue.length);
+        const bFirstWord = b.name.slice(0, searchInputValue.length);
+
+        // 음식의 첫번째 단어가 서치어일 때 우선 정렬
+        if (
+          aFirstWord === searchInputValue ||
+          bFirstWord === searchInputValue
+        ) {
+          return a.name.length - b.name.length;
+        }
+        // 서치어를 우선시하여 일반 정렬
+        else {
+          return (
+            b.name.localeCompare(searchInputValue, 'ko') -
+            a.name.localeCompare(searchInputValue, 'ko')
+          );
+        }
+      })
+      .splice(0, 10); // 배열 자르기
 
     const getHighlightedText = (text: string, highlight: string) => {
       const parts: string[] | undefined = text.split(
