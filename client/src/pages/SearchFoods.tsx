@@ -48,9 +48,9 @@ const SearchFoods = () => {
   };
 
   const AutoCompleteBox = () => {
-    const matchWordList = foodNameData.filter(food =>
-      food.name.match(regexValue!),
-    );
+    const matchWordList = foodNameData
+      .filter(food => food.name.match(regexValue!))
+      .splice(0, 10);
 
     const getHighlightedText = (text: string, highlight: string) => {
       const parts: string[] | undefined = text.split(
@@ -74,8 +74,7 @@ const SearchFoods = () => {
     return (
       <>
         <ul className="menu bg-base-100 rounded-box">
-          {matchWordList
-            .map((item, i) => {
+          {matchWordList.map((item, i) => {
               return (
                 <li key={i}>
                   <a className={addmealCss.nogap}>
@@ -92,8 +91,7 @@ const SearchFoods = () => {
                   </a>
                 </li>
               );
-            })
-            .splice(0, 10)}
+          })}
         </ul>
       </>
     );
