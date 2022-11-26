@@ -107,8 +107,9 @@ const SearchFoods = () => {
 
   // 페이지 입장시 최초 1회 음식 이름 리스트 로드
   useEffect(() => {
+    if (!foodNameData.length) {
     dispatch(asyncUpFetch());
-    console.log(foodNameData);
+    }
   }, []);
 
   return (
