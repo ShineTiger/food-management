@@ -15,17 +15,25 @@ export const apiTest: any = (dummyUrl: string, input?: any, output?: any) => {
 };
 
 // (특정 문자열을 기준으로 리스트를 정렬)
+// return 값이 음수면 a가 앞, 양수면 b가 앞
 export const searchSort = (a: string, b: string, text: string): number => {
   // 검색어를 우선시하여, 음식배열을 정렬함
-  const aFirstWord = a.slice(0, text.length);
-  const bFirstWord = b.slice(0, text.length);
+  const aWordIndex = a.indexOf(text);
+  const bWordIndex = b.indexOf(text);
 
-  // 음식의 첫번째 단어가 서치어일 때 우선 정렬
-  if (aFirstWord === text || bFirstWord === text) {
+  // a, b모두가 text를 가지고 있고, index가 동일할 때
+  if (aWordIndex === bWordIndex && aWordIndex !== -1) {
     return a.length - b.length;
-  }
-  // 서치어를 우선시하여 일반 정렬
-  else {
-    return b.localeCompare(text, 'ko') - a.localeCompare(text, 'ko');
+    // a, b 모두가 text를 가지고 있고, index가 다를 때
+  } else if (aWordIndex !== -1 && bWordIndex !== -1) {
+    return aWordIndex < bWordIndex ? -1 : 1;
+    // a만 text를 가지고 있을 경우
+  } else if (aWordIndex !== -1 && bWordIndex === -1) {
+    return -1;
+    // b만 text를 가지고 있을 경우
+  } else if (aWordIndex === -1 && bWordIndex !== -1) {
+    return 1;
+  } else {
+    return b.localeCompare(a, 'ko');
   }
 };
