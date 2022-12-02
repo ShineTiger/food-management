@@ -85,7 +85,7 @@ const Total = () => {
             })}
           </ul>
           <Link
-            to={'/AddMeal'}
+            to={'/SearchFoods'}
             className="p-3 bg-inherit	bg-slate-800 text-white"
           >
             음식추가 +{' '}

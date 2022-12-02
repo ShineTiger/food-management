@@ -5,9 +5,9 @@ import { useForm, SubmitHandler, useFormState } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 interface JoinFormType {
-  id: string;
-  pw: string;
-  nick: string;
+  userId: string;
+  password: string;
+  nickname: string;
   pwConfirm: string;
 }
 const Join = () => {
@@ -23,17 +23,18 @@ const Join = () => {
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 
   const mailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-  const nickRegex = /^[ㄱ-ㅎ가-힣]+$/;
+  const nickRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
   const navigate = useNavigate();
 
   const onValid: SubmitHandler<JoinFormType> = userdata => {
     //회원가입 폼 전달
+    console.log(userdata);
     axios
-      .post('/api/joinSuccess', { userdata })
+      .post('api/join', userdata)
       .then(response => {
         if (
           response.data.status === 'success' &&
-          response.data.message === ''
+          response.data.message === 'success'
         ) {
           alert('가입완료!');
           navigate('/Login');
@@ -46,7 +47,6 @@ const Join = () => {
       .catch(error => {
         alert(`${error} '원인을 알 수 없는 오류가 발생했습니다.'`);
       });
-    alert('회원가입 기능은 구현중 입니다. DB 저장이 원활하지 않을 수 있습니다');
   };
 
   return (
@@ -54,21 +54,11 @@ const Join = () => {
       <form onSubmit={handleSubmit(onValid)}>
         <h2 className="text-2xl py-3 leading-10 font-medium">회원가입</h2>
         <input
-          {...register('id', {
+          {...register('userId', {
             required: '이메일을 입력해 주세요',
             pattern: {
               value: mailRegex,
               message: '이메일 양식이 올바르지 않습니다',
-            },
-            validate: {
-              idConfirm: async (val: string) => {
-                const data = (
-                  await axios.post('/api/testSuccess', {
-                    val,
-                  })
-                ).data;
-                return data.status === 'success' || '중복 아이디'; //test할땐 true만 사용합니다.
-              },
             },
           })}
           placeholder="이메일"
@@ -77,13 +67,13 @@ const Join = () => {
 
         <label className="label">
           <span className="label-text-alt text-red-600">
-            {errors.id && errors.id.message && errors.id.message}
+            {errors.userId && errors.userId.message && errors.userId.message}
           </span>
         </label>
 
         <input
           type="password"
-          {...register('pw', {
+          {...register('password', {
             required: '비밀번호를 입력해 주세요',
             minLength: {
               value: 8,
@@ -101,7 +91,9 @@ const Join = () => {
 
         <label className="label">
           <span className="label-text-alt text-red-600">
-            {errors.pw && errors.pw.message && errors.pw.message}
+            {errors.password &&
+              errors.password.message &&
+              errors.password.message}
           </span>
         </label>
 
@@ -110,7 +102,7 @@ const Join = () => {
           {...register('pwConfirm', {
             required: true,
             validate: (val: string) => {
-              if (watch('pw') != val) {
+              if (watch('password') != val) {
                 return '비밀번호가 일치하지 않습니다';
               }
             },
@@ -128,19 +120,13 @@ const Join = () => {
         </label>
 
         <input
-          {...register('nick', {
+          {...register('nickname', {
             required: '닉네임을 입력해 주세요',
-            minLength: {
-              value: 1,
-              message: '1자 이상 입력해 주세요',
-            },
-            maxLength: {
-              value: 15,
-              message: '15자 이하 입력해 주세요',
-            },
+
             pattern: {
               value: nickRegex,
-              message: '닉네임은 한글로만 만들 수 있습니다',
+              message:
+                '닉네임은 2글자 이상 16자 이내, 초성을 제외한 한글, 영어, 숫자만 입력할 수 있습니다',
             },
           })}
           placeholder="닉네임"
@@ -149,7 +135,9 @@ const Join = () => {
 
         <label className="label">
           <span className="label-text-alt text-red-600">
-            {errors.nick && errors.nick.message && errors.nick.message}
+            {errors.nickname &&
+              errors.nickname.message &&
+              errors.nickname.message}
           </span>
         </label>
 
