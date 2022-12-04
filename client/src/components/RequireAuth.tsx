@@ -10,10 +10,10 @@ const RequireAuth = () => {
     return tokenValue;
   };
 
+  //발급받은 토큰의 타입을 확인하고 빈값이 아닌지 확인하는 함수
   const isLogined = (getTokenValue: string | null) => {
     if (typeof getTokenValue === 'string' && getTokenValue.length > 0) {
-      const userData = axios.post('/api/testSuccess');
-      return userData;
+      return true;
     }
   };
 
