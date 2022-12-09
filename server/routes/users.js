@@ -15,7 +15,7 @@ router.post("/saveMeal", async (req, res) => {
   let successMessage = "";
 
   // 유효성 검사
-  if (token == undefined || type == undefined || meal == undefined) {
+  if (token == undefined || type == undefined || meal == undefined || date == undefined) {
     failReason = "Invalid input";
   } else {
     const YMD = new Date(date).toISOString().substring(0, 10); // UTC
@@ -51,7 +51,7 @@ router.post("/getMeal", async (req, res) => {
   let successMessage = "";
 
   // 유효성 검사
-  if (token == undefined || type == undefined || meal == undefined) {
+  if (token == undefined || type == undefined || date == undefined) {
     failReason = "Invalid input";
   } else {
     const YMD = new Date(date).toISOString().substring(0, 10); // UTC
@@ -74,6 +74,35 @@ router.post("/getMeal", async (req, res) => {
   });
 });
 
+// 해당 날짜의 모든 식단 불러오기
+router.post("/getMealAll", async (req, res) => {
+  const { token, date } = req.body;
+  let failReason = "";
+  let successMessage = "";
+
+  // 유효성 검사
+  if (token == undefined || date == undefined) {
+    failReason = "Invalid input";
+  } else {
+    const YMD = new Date(date).toISOString().substring(0, 10); // UTC
+    mealData = await db.userMeal.find({
+      token: token,
+      date: new Date(YMD)
+    }).toArray();
+    
+    if (mealData.length > 0) {
+      successMessage = mealData;
+    } else {
+      failReason = "Not exists"
+    }
+  }
+
+  res.send({
+    status: failReason == "" ? "success" : "fail",
+    message: failReason == "" ? successMessage : failReason,
+  });
+});
+
 // 식단 수정하기
 router.post("/updateMeal", async (req, res) => {
   const { token, type, meal, date } = req.body;
@@ -81,7 +110,7 @@ router.post("/updateMeal", async (req, res) => {
   let successMessage = "";
 
   // 유효성 검사
-  if (token == undefined || type == undefined || meal == undefined) {
+  if (token == undefined || type == undefined || meal == undefined || date == undefined) {
     failReason = "Invalid input";
   } else {
     const YMD = new Date(date).toISOString().substring(0, 10); // UTC
@@ -110,7 +139,7 @@ router.post("/removeMeal", async (req, res) => {
   let successMessage = "";
 
   // 유효성 검사
-  if (token == undefined || type == undefined || meal == undefined) {
+  if (token == undefined || type == undefined || meal == undefined || date == undefined) {
     failReason = "Invalid input";
   } else {
     const YMD = new Date(date).toISOString().substring(0, 10); // UTC
