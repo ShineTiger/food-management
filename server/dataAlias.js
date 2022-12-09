@@ -1,4 +1,5 @@
 const alias = {
+  _id: "id",
   식품명: "name",
   "1회제공량": "servingSize",
   "에너지(㎉)": "kiloCalories",
@@ -13,7 +14,6 @@ const alias = {
 };
 
 const keyChange = function (source) {
-  delete source._id;
   for (const key in source) {
     if (key in alias) {
       source[alias[key]] = source[key];
