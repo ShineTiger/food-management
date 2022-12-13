@@ -13,12 +13,14 @@ app.use(cors());
 app.use("/api", bodyParser.urlencoded({ extended: true }));
 app.use("/api", bodyParser.json());
 
-// test api
-// app.post("/api/getFoodNamesAll", async function (req, res) {
-//   const result = (await db.foodData.find().toArray()).map((i) => i.식품명);
-//   console.log(result);
-//   res.send(result);
-// });
+app.post("/api/getFoodNamesAll", async function (req, res) {
+  const result = (await db.foodData.find().toArray()).map((i) => keyChange(i));
+  const filter = result.map((i) => ({id, name, kiloCalories}));
+  res.send({
+    status: "success",
+    message: filter,
+  });
+});
 
 app.post("/api/getFoodsAll", async function (req, res) {
   const result = (await db.foodData.find().toArray()).map((i) => keyChange(i));
