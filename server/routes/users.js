@@ -4,25 +4,149 @@ const db = require("../middleware/database");
 const { createToken, verifyToken } = require("../middleware/auth");
 const { encrypt } = require("../middleware/crypt");
 
-const pwRegex =
-  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 const mailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 const nickReg = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
-// 오늘 식단 저장
-router.post("/saveTodayMeal", async (req, res) => {
-  const { userId, type, meal } = req.body;
+// 식단 저장
+router.post("/saveMeal", async (req, res) => {
+  const { token, type, meal, date } = req.body;
   let failReason = "";
   let successMessage = "";
 
-  if (userId == undefined || type == undefined || meal == undefined) {
+  // 유효성 검사
+  if (token == undefined || type == undefined || meal == undefined || date == undefined) {
     failReason = "Invalid input";
   } else {
-    const dateString = new Date().toISOString().substring(0, 10); // UTC
-    await db.userMeal.insertOne({
-      date: dateString,
+    const YMD = new Date(date).toISOString().substring(0, 10); // UTC
+    const isExists = await db.userData.countDocuments({
+      token: token,
+      date: new Date(YMD),
       type: type,
-      meal: meal,
+    });
+    // 중복 검사
+    if (isExists > 0) {
+      failReason = "Already saved";
+    } else {
+      await db.userMeal.insertOne({
+        token: token,
+        date: new Date(YMD),
+        type: type,
+        meal: meal
+      });
+      successMessage = "success";
+    }
+  }
+
+  res.send({
+    status: failReason == "" ? "success" : "fail",
+    message: failReason == "" ? successMessage : failReason,
+  });
+});
+
+// 식단 불러오기
+router.post("/getMeal", async (req, res) => {
+  const { token, type, date } = req.body;
+  let failReason = "";
+  let successMessage = "";
+
+  // 유효성 검사
+  if (token == undefined || type == undefined || date == undefined) {
+    failReason = "Invalid input";
+  } else {
+    const YMD = new Date(date).toISOString().substring(0, 10); // UTC
+    mealData = await db.userMeal.findOne({
+      token: token,
+      date: new Date(YMD),
+      type: type
+    });
+
+    if (mealData !== undefined) {
+      successMessage = mealData;
+    } else {
+      failReason = "Not exists"
+    }
+  }
+
+  res.send({
+    status: failReason == "" ? "success" : "fail",
+    message: failReason == "" ? successMessage : failReason,
+  });
+});
+
+// 해당 날짜의 모든 식단 불러오기
+router.post("/getMealAll", async (req, res) => {
+  const { token, date } = req.body;
+  let failReason = "";
+  let successMessage = "";
+
+  // 유효성 검사
+  if (token == undefined || date == undefined) {
+    failReason = "Invalid input";
+  } else {
+    const YMD = new Date(date).toISOString().substring(0, 10); // UTC
+    mealData = await db.userMeal.find({
+      token: token,
+      date: new Date(YMD)
+    }).toArray();
+    
+    if (mealData.length > 0) {
+      successMessage = mealData;
+    } else {
+      failReason = "Not exists"
+    }
+  }
+
+  res.send({
+    status: failReason == "" ? "success" : "fail",
+    message: failReason == "" ? successMessage : failReason,
+  });
+});
+
+// 식단 수정하기
+router.post("/updateMeal", async (req, res) => {
+  const { token, type, meal, date } = req.body;
+  let failReason = "";
+  let successMessage = "";
+
+  // 유효성 검사
+  if (token == undefined || type == undefined || meal == undefined || date == undefined) {
+    failReason = "Invalid input";
+  } else {
+    const YMD = new Date(date).toISOString().substring(0, 10); // UTC
+    await db.userMeal.updateOne({
+      token: token,
+      date: new Date(YMD),
+      type: type
+    }, {
+      $set: {
+        meal
+      }
+    });
+    successMessage = "success";
+  }
+
+  res.send({
+    status: failReason == "" ? "success" : "fail",
+    message: failReason == "" ? successMessage : failReason,
+  });
+});
+
+// 식단 삭제
+router.post("/removeMeal", async (req, res) => {
+  const { token, type, meal, date } = req.body;
+  let failReason = "";
+  let successMessage = "";
+
+  // 유효성 검사
+  if (token == undefined || type == undefined || meal == undefined || date == undefined) {
+    failReason = "Invalid input";
+  } else {
+    const YMD = new Date(date).toISOString().substring(0, 10); // UTC
+    await db.userMeal.removeOne({
+      token: token,
+      date: new Date(YMD),
+      type: type
     });
     successMessage = "success";
   }
