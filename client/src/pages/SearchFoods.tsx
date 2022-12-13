@@ -6,7 +6,8 @@ import { AppDispatch, RootState } from '../redux/store';
 import { asyncUpFetch } from '../redux/slice/nameCalorieSlice';
 import { setSelectedFood } from '../redux/slice/seletedFoodSlice';
 import { Link } from 'react-router-dom';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
+import { SortBySearchValue } from '../utils/common';
 
 const SearchFoods = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,11 +47,16 @@ const SearchFoods = () => {
 
     axios.post('api/testSuccess', { method: 'POST', body: new FormData() });
   };
-
   const AutoCompleteBox = () => {
-    const matchWordList = foodNameData.filter(food =>
+    // 정규식으로 한번 필터된 음식배열
+    const filteredFoods = foodNameData.filter(food =>
       food.name.match(regexValue!),
     );
+
+    const matchWordList = filteredFoods
+      // 검색어 우선순위 정렬
+      .sort((a, b) => SortBySearchValue(a.name, b.name, searchInputValue))
+      .splice(0, 10); // 배열 자르기
 
     const getHighlightedText = (text: string, highlight: string) => {
       const parts: string[] | undefined = text.split(
@@ -74,26 +80,24 @@ const SearchFoods = () => {
     return (
       <>
         <ul className="menu bg-base-100 rounded-box">
-          {matchWordList
-            .map((item, i) => {
-              return (
-                <li key={i}>
-                  <a className={addmealCss.nogap}>
-                    <input
-                      type="checkbox"
-                      className="checkbox mr-3"
-                      value={item.name}
-                      onChange={e => {
-                        onChecked(e.target.checked, item, e.target.value);
-                      }}
-                      checked={selectedFood.includes(item) ? true : false}
-                    />
-                    {getHighlightedText(item.name, searchInputValue)}
-                  </a>
-                </li>
-              );
-            })
-            .splice(0, 10)}
+          {matchWordList.map((item, i) => {
+            return (
+              <li key={i}>
+                <a className={addmealCss.nogap}>
+                  <input
+                    type="checkbox"
+                    className="checkbox mr-3"
+                    value={item.name}
+                    onChange={e => {
+                      onChecked(e.target.checked, item, e.target.value);
+                    }}
+                    checked={selectedFood.includes(item) ? true : false}
+                  />
+                  {getHighlightedText(item.name, searchInputValue)}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </>
     );
@@ -101,8 +105,9 @@ const SearchFoods = () => {
 
   // 페이지 입장시 최초 1회 음식 이름 리스트 로드
   useEffect(() => {
-    dispatch(asyncUpFetch());
-    console.log(foodNameData);
+    if (!foodNameData.length) {
+      dispatch(asyncUpFetch());
+    }
   }, []);
 
   return (
