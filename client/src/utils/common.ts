@@ -16,10 +16,14 @@ export const apiTest: any = (dummyUrl: string, input?: any, output?: any) => {
 
 // (특정 문자열을 기준으로 리스트를 정렬)
 // return 값이 음수면 a가 앞, 양수면 b가 앞
-export const searchSort = (a: string, b: string, text: string): number => {
+export const SortBySearchValue = (
+  a: string,
+  b: string,
+  searchValue: string,
+): number => {
   // 검색어를 우선시하여, 음식배열을 정렬함
-  const aWordIndex = a.indexOf(text);
-  const bWordIndex = b.indexOf(text);
+  const aWordIndex = a.indexOf(searchValue);
+  const bWordIndex = b.indexOf(searchValue);
 
   // a, b모두가 text를 가지고 있고, index가 동일할 때
   if (aWordIndex === bWordIndex && aWordIndex !== -1) {
