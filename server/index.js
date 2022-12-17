@@ -14,16 +14,15 @@ app.use("/api", bodyParser.urlencoded({ extended: true }));
 app.use("/api", bodyParser.json());
 
 app.post("/api/getFoodNamesAll", async function (req, res) {
-  const result = (await db.foodData.find().toArray()).map((i) => keyChange(i));
-  const filter = result.map((i) => ({id, name, kiloCalories}));
+  const result = (await db.foodData.find({}, {projection: {"식품명": 1, "에너지(㎉)": 1}}).toArray()).map(keyChange);
   res.send({
     status: "success",
-    message: filter,
+    message: result,
   });
 });
 
 app.post("/api/getFoodsAll", async function (req, res) {
-  const result = (await db.foodData.find().toArray()).map((i) => keyChange(i));
+  const result = (await db.foodData.find().toArray()).map(keyChange);
   res.send({
     status: "success",
     message: result,

@@ -16,7 +16,12 @@ const alias = {
 const keyChange = function (source) {
   for (const key in source) {
     if (key in alias) {
-      source[alias[key]] = source[key];
+      if (alias[key] == "id" || alias[key] == "name") {
+        source[alias[key]] = source[key];
+      } else {
+        const number = parseFloat(source[key]);
+        source[alias[key]] = isNaN(number) ? null : number;
+      }
       delete source[key];
     }
   }
