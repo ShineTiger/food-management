@@ -28,12 +28,12 @@ const DateHeader = () => {
       <DateButton action={'prev'} />
       <DatePicker
         className={`btn btn-ghost flex m-3 mx-auto text-red ${customStyle.dateBtn}`}
-        selected={currentDate}
+        selected={new Date(currentDate)}
         dateFormat={'yy.MM.dd'}
         maxDate={new Date()} // 오늘 날짜 이후 선택 불가능
         popperPlacement="auto"
         locale="ko"
-        onChange={newDate => newDate && dispatch(setToday(newDate))}
+        onChange={newDate => newDate && dispatch(setToday(newDate.getTime()))}
       />
       {!isToday && <DateButton action={'next'} />}
     </div>
