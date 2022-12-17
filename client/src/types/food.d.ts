@@ -2,6 +2,7 @@
 interface nameCalorieData {
   name: string;
   kiloCalories: number;
+  id: string;
 }
 
 interface DayMeals {

@@ -29,17 +29,17 @@ const SearchFoods = () => {
     setsearchInputValue(e.target.value);
   };
 
-  const onChecked = (selected: boolean, item: nameCalorieData, e: string) => {
+  const onChecked = (selected: boolean, item: nameCalorieData) => {
     if (selected) {
       dispatch(setSelectedFood([...selectedFood, item]));
     } else if (!selected) {
       //name과 같지 않은것만 반환함 -> name과 같은건 selectedItem에서 삭제한다
-      dispatch(setSelectedFood(selectedFood.filter(el => el.name !== e)));
+      dispatch(setSelectedFood(selectedFood.filter(el => el.id !== item.id)));
     }
   };
 
-  const onRemoved = (e: string) => {
-    dispatch(setSelectedFood(selectedFood.filter(el => el.name !== e)));
+  const onRemoved = (itemId: string) => {
+    dispatch(setSelectedFood(selectedFood.filter(el => el.id !== itemId)));
   };
 
   const submitSeletedFood = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,16 +80,16 @@ const SearchFoods = () => {
     return (
       <>
         <ul className="menu bg-base-100 rounded-box">
-          {matchWordList.map((item, i) => {
+          {matchWordList.map(item => {
             return (
-              <li key={i}>
+              <li key={item.id}>
                 <a className={addmealCss.nogap}>
                   <input
                     type="checkbox"
                     className="checkbox mr-3"
                     value={item.name}
                     onChange={e => {
-                      onChecked(e.target.checked, item, e.target.value);
+                      onChecked(e.target.checked, item);
                     }}
                     checked={selectedFood.includes(item) ? true : false}
                   />
@@ -130,8 +130,8 @@ const SearchFoods = () => {
                     <button
                       type="button"
                       value={el.name}
-                      onClick={e => {
-                        onRemoved(el.name);
+                      onClick={() => {
+                        onRemoved(el.id);
                       }}
                     >
                       <svg
