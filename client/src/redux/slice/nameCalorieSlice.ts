@@ -4,14 +4,8 @@ import axios from 'axios';
 const asyncUpFetch = createAsyncThunk(
   'nameCalorieSlice/asyncUpFetch',
   async () => {
-    const res = (await axios.post('/api/getFoodsAll')).data.message;
-    const nameCalorieData = await res.map((el: Food) => {
-      const nameCalorie = {
-        name: el.name,
-        kiloCalories: el.kiloCalories,
-      };
-      return nameCalorie;
-    });
+    const res = await axios.post(`/api/getFoodNamesAll`);
+    const nameCalorieData = await res.data.message;
     return nameCalorieData;
   },
 );
