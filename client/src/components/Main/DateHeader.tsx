@@ -10,12 +10,12 @@ import { ko } from 'date-fns/esm/locale';
 import startOfDay from 'date-fns/startOfDay';
 
 import { RootState } from '../../redux/store';
-import { setToday } from '../../redux/slice/dateSlice';
+import { setSelectedDay } from '../../redux/slice/dateSlice';
 
 const DateHeader = () => {
   const dispatch = useDispatch();
   const currentDate = useSelector(
-    (store: RootState) => store.dateInfo.todayDate,
+    (store: RootState) => store.dateInfo.selectedDate,
   );
   // 오늘 날짜인지 검사
   const isToday = isSameDay(currentDate, startOfDay(new Date()));
@@ -28,12 +28,14 @@ const DateHeader = () => {
       <DateButton action={'prev'} />
       <DatePicker
         className={`btn btn-ghost flex m-3 mx-auto text-red ${customStyle.dateBtn}`}
-        selected={currentDate}
+        selected={new Date(currentDate)}
         dateFormat={'yy.MM.dd'}
         maxDate={new Date()} // 오늘 날짜 이후 선택 불가능
         popperPlacement="auto"
         locale="ko"
-        onChange={newDate => newDate && dispatch(setToday(newDate))}
+        onChange={newDate =>
+          newDate && dispatch(setSelectedDay(newDate.getTime()))
+        }
       />
       {!isToday && <DateButton action={'next'} />}
     </div>

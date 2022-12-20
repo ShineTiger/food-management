@@ -5,23 +5,23 @@ import addDays from 'date-fns/addDays';
 const dateSlice = createSlice({
   name: 'dateInfo',
   initialState: {
-    todayDate: startOfDay(new Date()),
+    selectedDate: startOfDay(new Date()).getTime(),
   },
   reducers: {
-    setToday(state, { payload }: PayloadAction<Date>) {
-      state.todayDate = payload;
+    setSelectedDay(state, { payload }: PayloadAction<number>) {
+      state.selectedDate = payload;
     },
 
     setPrevDate(state) {
-      state.todayDate = addDays(state.todayDate, -1);
+      state.selectedDate = addDays(state.selectedDate, -1).getTime();
     },
 
     setNextDate(state) {
-      state.todayDate = addDays(state.todayDate, +1);
+      state.selectedDate = addDays(state.selectedDate, +1).getTime();
     },
   },
 });
 
-export const { setToday, setPrevDate, setNextDate } = dateSlice.actions;
+export const { setSelectedDay, setPrevDate, setNextDate } = dateSlice.actions;
 
 export default dateSlice.reducer;
